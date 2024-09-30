@@ -10,6 +10,7 @@ public class DriveCommand extends CommandBase {
     private Gamepad gamepad;
 
     public DriveCommand(DriveSubsystem driveSubsystem, Gamepad gamepad){
+        // decoupling code BITCH
         this.driveSubsystem = driveSubsystem;
         this.gamepad = gamepad;
         addRequirements(driveSubsystem);
