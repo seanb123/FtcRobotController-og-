@@ -12,6 +12,12 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
+//I plan on modifying this code. To add more functionalities
+/*
+    TODO Add a button to make the motors preform specific tasks like extend arm and collect the samples. Rather then doing two actions A button Second controller
+    TODO Extend arms and shoot the samples B button Second controller
+    TODO See if i can refine the Teleop code to make it more accurate.
+*/
 @TeleOp
 public class teleop extends LinearOpMode {
     private Follower follower;
