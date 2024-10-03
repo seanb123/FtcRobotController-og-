@@ -30,7 +30,7 @@ public class teleop extends LinearOpMode {
 
     @Override
     public void runOpMode(){
-        slide_motor = hardwareMap.get(DcMotor.class, "sildeMotor"); //TODO: Change the name on driver hub
+        slide_motor = hardwareMap.get(DcMotor.class, "slideMotor"); //TODO: Change the name on driver hub
         slide_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

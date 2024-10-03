@@ -19,7 +19,7 @@ public class DriveCommand extends CommandBase {
     @Override
     public void execute() {
         // use the Follower within the DriveSubsystem to handle driving
-        double forward = -gamepad.left_stick_y;
+        double forward = gamepad.left_stick_y;
         double strafe = -gamepad.left_stick_x;
         double rotate = -gamepad.right_stick_x;
 
