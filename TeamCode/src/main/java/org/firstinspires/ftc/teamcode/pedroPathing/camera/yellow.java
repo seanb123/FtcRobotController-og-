@@ -105,19 +105,19 @@ public class yellow extends OpenCvPipeline {
         // Determine the location of the object based on color thresholds
         // If the percentage of pixels matching the target color in a specific ROI exceeds the threshold,
         // the object is considered to be detected in that location
-        boolean stoneLeft = leftValue > PERCENT_COLOR_THRESHOLD;
-        boolean stoneMiddle = middleValue > PERCENT_COLOR_THRESHOLD;
-        boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
+        boolean sampleLeft = leftValue > PERCENT_COLOR_THRESHOLD;
+        boolean sampleMiddle = middleValue > PERCENT_COLOR_THRESHOLD;
+        boolean sampleRight = rightValue > PERCENT_COLOR_THRESHOLD;
 
         // Update the location variable and send telemetry data
         // Based on the detected location, the location variable is updated and the corresponding telemetry data is sent
-        if (stoneRight) {
+        if (sampleRight) {
             location = Location.RIGHT;
             telemetry.addData("Prop Location", "RIGHT");
-        } else if (stoneLeft) {
+        } else if (sampleLeft) {
             location = Location.LEFT;
             telemetry.addData("Prop Location", "LEFT");
-        } else if (stoneMiddle) {
+        } else if (sampleMiddle) {
             location = Location.MIDDLE;
             telemetry.addData("Prop Location", "MIDDLE");
         } else {
