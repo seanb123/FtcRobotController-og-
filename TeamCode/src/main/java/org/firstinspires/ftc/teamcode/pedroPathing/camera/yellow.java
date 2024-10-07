@@ -1,5 +1,13 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.camera;
 
+
+//Where I learned to use OpenCV and FTC
+/*
+    https://deltacv.gitbook.io/eocv-sim/vision-portal/introduction-to-visionportal
+    https://www.youtube.com/watch?v=JO7dqzJi8lw
+ */
+//TODO add more functionality to the code and add more features to make it more accurate
+//resources
 // Import necessary libraries for OpenCV and FTC
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
