@@ -10,14 +10,13 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @Autonomous(name = "AutonomousWithCamera", group = "Autonomous")
 public class Webcam extends LinearOpMode {
     private OpenCvCamera webcam;
-    private yellow pipeline;
 
     @Override
     public void runOpMode() {
         // Initialize the webcam and pipeline
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        pipeline = new yellow(telemetry);
+        yellow pipeline = new yellow(telemetry);
         webcam.setPipeline(pipeline);
 
         // Start the camera stream
