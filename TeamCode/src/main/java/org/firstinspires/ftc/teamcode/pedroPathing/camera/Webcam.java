@@ -7,7 +7,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-@Autonomous(name = "AutonomousWithCamera", group = "Autonomous")
+@Autonomous(name = "Autonomous With Camera", group = "Autonomous")
 public class Webcam extends LinearOpMode {
     private OpenCvCamera webcam;
 
