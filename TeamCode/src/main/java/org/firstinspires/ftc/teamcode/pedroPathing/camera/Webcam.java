@@ -35,7 +35,7 @@ public class Webcam extends LinearOpMode {
         waitForStart();
 
         yellow.Location location = pipeline.getLocation();
-
+        //TODO add code to run based on location
         switch (location) {
             case LEFT:
                 // Code to execute if the object is detected on the left
