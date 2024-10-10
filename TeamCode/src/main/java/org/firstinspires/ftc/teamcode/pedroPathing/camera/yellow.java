@@ -69,6 +69,7 @@ public class yellow extends OpenCvPipeline {
         // In this case, it's set to detect yellow
         Scalar lowHSV = new Scalar(23, 50, 70); // Lower bound for yellow in HSV
         Scalar highHSV = new Scalar(32, 255, 255); // Upper bound for yellow in HSV
+        //63, 96, 100 Potential upper bond
 
 
         // Filter the image to keep only pixels within the specified color range
