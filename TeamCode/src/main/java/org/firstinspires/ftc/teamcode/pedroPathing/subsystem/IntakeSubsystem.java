@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class IntakeSubsystem extends SubsystemBase {
     private CRServo intake_servo;
-    private boolean direction;
 
     public IntakeSubsystem(HardwareMap hardwareMap){
         intake_servo = hardwareMap.get(CRServo.class, "intakeServo");

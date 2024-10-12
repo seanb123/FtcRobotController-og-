@@ -4,11 +4,11 @@ import com.arcrobotics.ftclib.command.CommandBase;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 
-public class IntakeCommand extends CommandBase {
+public class MoveIntakeCommand extends CommandBase {
     private IntakeSubsystem intake_subsystem;
     private boolean direction;
 
-    public IntakeCommand(IntakeSubsystem intake_subsystem, boolean direction){
+    public MoveIntakeCommand(IntakeSubsystem intake_subsystem, boolean direction){
         this.intake_subsystem = intake_subsystem;
         this.direction = direction;
 

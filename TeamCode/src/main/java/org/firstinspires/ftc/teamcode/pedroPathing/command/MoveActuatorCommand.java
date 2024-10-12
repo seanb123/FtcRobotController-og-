@@ -10,6 +10,8 @@ public class MoveActuatorCommand extends CommandBase {
     public MoveActuatorCommand(ActuatorSubsystem subsystem, double speed){
         this.actuator_subsystem = subsystem;
         this.speed = speed;
+
+        addRequirements(subsystem);
     }
 
     @Override

@@ -13,6 +13,7 @@ public class MoveSlideCommand extends CommandBase {
         this.slide_subsystem = subsystem;
         this.target_position = target_position;
         this.speed = speed;
+
         addRequirements(subsystem);
     }
 
