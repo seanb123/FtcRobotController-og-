@@ -26,6 +26,8 @@ public class teleop2 extends CommandOpMode {
 
     @Override
     public void initialize(){
+        // TODO: Gamepad rumble? Color sensor
+
         // Controllers
         //drive_controller = new GamepadEx(gamepad1);
         arm_controller = new GamepadEx(gamepad2);
