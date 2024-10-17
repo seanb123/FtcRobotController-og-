@@ -16,9 +16,10 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
-
+import com.qualcomm.robotcore.hardware.ColorSensor;
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
+    private ColorSensor color_sensor_L;
     private DriveSubsystem drive_subsystem;
     private SlideSubsystem slide_subsystem;
     private ActuatorSubsystem actuator_subsystem;
@@ -56,6 +57,8 @@ public class teleop2 extends CommandOpMode {
          * LEFT BUMPER -> RAISE LINEAR ACTUATORS
          * RIGHT BUMPER -> LOWER LINEAR ACTUATORS
          * */
+        // initilize color sensors
+        color_sensor_L = hardwareMap.get(ColorSensor.class, "color_sensor_L");
         drive_subsystem.setDefaultCommand(new DriveCommand(drive_subsystem, gamepad1));
 
         raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
