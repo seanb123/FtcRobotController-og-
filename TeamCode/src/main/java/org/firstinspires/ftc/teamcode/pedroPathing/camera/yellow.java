@@ -31,7 +31,6 @@ public class yellow extends OpenCvPipeline {
         RIGHT,MIDDLE,
         NOT_FOUND
     }
-
     // Variable to store the detected location of the object
     private Location location;
 
@@ -56,45 +55,31 @@ public class yellow extends OpenCvPipeline {
     public yellow(Telemetry t) {
         telemetry = t;
     }
+    // Constants for camera calibration and object detection
+    static final double KNOWN_WIDTH = 20.0; // Adjust this based on the real width of your object
+    //static final double KNOWN_HEIGHT = 20.0; // Adjust this based on the real height of your object
+    static final double FOCAL_LENGTH = 20.0; // Approximate value, adjust based on camera calibration
 
     // This method is called for each frame captured by the camera
     @Override
     public Mat processFrame(Mat input) {
-        // Convert the input image from RGB to HSV color space
-        // HSV is often used for color detection as it separates hue, saturation, and value
         Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
-
-        // Define the lower and upper bounds for the target color in HSV
-        // These values represent the range of HSV values that will be considered as the target color
-        // In this case, it's set to detect yellow
-        Scalar lowHSV = new Scalar(23, 50, 70); // Lower bound for yellow in HSV
-        Scalar highHSV = new Scalar(32, 255, 255); // Upper bound for yellow in HSV
-        //63, 96, 100 Potential upper bond
-
-
-        // Filter the image to keep only pixels within the specified color range
-        // This creates a binary mask where white pixels represent the target color and black pixels represent other colors
+        Scalar lowHSV = new Scalar(23, 50, 70);
+        Scalar highHSV = new Scalar(32, 255, 255);
         Core.inRange(mat, lowHSV, highHSV, mat);
 
-        // Extract sub mats representing the ROIs
-        // These sub mats allow us to analyze specific regions of the image
         Mat left = mat.submat(LEFT_ROI);
         Mat middle = mat.submat(MIDDLE_ROI);
         Mat right = mat.submat(RIGHT_ROI);
 
-        // Calculate the percentage of pixels within each ROI that match the target color
-        // This is done by summing the values of all pixels in the ROI and dividing by the total area
         double leftValue = Core.sumElems(left).val[0] / LEFT_ROI.area() / 255;
         double middleValue = Core.sumElems(middle).val[0] / MIDDLE_ROI.area() / 255;
         double rightValue = Core.sumElems(right).val[0] / RIGHT_ROI.area() / 255;
 
-        // Release the sub mats to free up memory
         left.release();
         middle.release();
         right.release();
 
-        // Send telemetry data to the driver station
-        // This includes the raw pixel values and the calculated percentages for each ROI
         telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
         telemetry.addData("Middle raw value", (int) Core.sumElems(middle).val[0]);
         telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
@@ -103,15 +88,10 @@ public class yellow extends OpenCvPipeline {
         telemetry.addData("Middle percentage", Math.round(middleValue * 100) + "%");
         telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
 
-        // Determine the location of the object based on color thresholds
-        // If the percentage of pixels matching the target color in a specific ROI exceeds the threshold,
-        // the object is considered to be detected in that location
         boolean sampleLeft = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean sampleMiddle = middleValue > PERCENT_COLOR_THRESHOLD;
         boolean sampleRight = rightValue > PERCENT_COLOR_THRESHOLD;
 
-        // Update the location variable and send telemetry data
-        // Based on the detected location, the location variable is updated and the corresponding telemetry data is sent
         if (sampleRight) {
             location = Location.RIGHT;
             telemetry.addData("Prop Location", "RIGHT");
@@ -126,27 +106,39 @@ public class yellow extends OpenCvPipeline {
             telemetry.addData("Prop Location", "NOT FOUND");
         }
 
-        // Update telemetry to display the data on the driver station
+        // Calculate the perceived width of the object in pixels based on the location
+        double perceivedWidth = 0;
+        if (location == Location.LEFT) {
+            perceivedWidth = LEFT_ROI.width;
+        } else if (location == Location.MIDDLE) {
+            perceivedWidth = MIDDLE_ROI.width;
+        } else if (location == Location.RIGHT) {
+            perceivedWidth = RIGHT_ROI.width;
+        }
+
+        // Calculate the distance using the pin-hole camera formula
+        double distance = 0;
+        if (perceivedWidth > 0) {
+            distance = (KNOWN_WIDTH * FOCAL_LENGTH) / perceivedWidth;
+        }
+
+        // Send distance data to telemetry
+        telemetry.addData("Distance to object (cm)", distance);
+
         telemetry.update();
 
-        // Convert the processed image back to RGB for display
-        // This is necessary as the image was previously converted to HSV for color detection
         Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
-        // Define colors for drawing rectangles around the ROIs
-        // These colors will be used to highlight the detected location
-        Scalar color = new Scalar(255, 0, 0); // Red color for ROIs without the object
-        Scalar colorObject = new Scalar(0, 255, 0); // Green color for the ROI with the object
+        Scalar color = new Scalar(255, 0, 0);
+        Scalar colorObject = new Scalar(0, 255, 0);
 
-        // Draw rectangles around the ROIs, highlighting the detected location
-        // This provides a visual representation of the object's location on the image
         Imgproc.rectangle(mat, LEFT_ROI, location == Location.LEFT ? colorObject : color);
         Imgproc.rectangle(mat, MIDDLE_ROI, location == Location.MIDDLE ? colorObject : color);
         Imgproc.rectangle(mat, RIGHT_ROI, location == Location.RIGHT ? colorObject : color);
 
-        // Return the processed image with the drawn rectangles
         return mat;
     }
+
 
     // Getter method to retrieve the detected location of the object
     public Location getLocation() {
