@@ -1,9 +1,13 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.teleop;
 
+import static com.arcrobotics.ftclib.kotlin.extensions.gamepad.GamepadExExtKt.whenActive;
+
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
+import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
+import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
@@ -24,7 +28,10 @@ public class teleop2 extends CommandOpMode {
     private ActuatorSubsystem actuator_subsystem;
     private IntakeSubsystem intake_subsystem;
     private RotateSlideSubsystem rotate_slide_subsystem;
-    private GamepadEx arm_controller;
+    private GamepadEx arm_controller, drive_controller;
+
+    private Trigger left_trigger, right_trigger;
+
     private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
 
     @Override
@@ -32,7 +39,7 @@ public class teleop2 extends CommandOpMode {
         // TODO: Gamepad rumble? Color sensor
 
         // Controllers
-        //drive_controller = new GamepadEx(gamepad1);
+        drive_controller = new GamepadEx(gamepad1);
         arm_controller = new GamepadEx(gamepad2);
 
         // Subsystems
@@ -68,15 +75,22 @@ public class teleop2 extends CommandOpMode {
         lower_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.RIGHT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, -1));
 
-        move_intake_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
+        move_intake_button = (new GamepadButton(drive_controller, GamepadKeys.Button.X))
                 .whenHeld(new MoveIntakeCommand(intake_subsystem, true));
-        move_intake_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
+        move_intake_button2 = (new GamepadButton(drive_controller, GamepadKeys.Button.Y))
                 .whenHeld(new MoveIntakeCommand(intake_subsystem, false));
 
-        rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.DPAD_LEFT))
-                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1));
-        rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.DPAD_RIGHT))
-                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1));
+        rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
+                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 700, 0.25));
+        rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
+                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 0, 0.25));
+
+
+//        left_trigger.whenActive(new MoveIntakeCommand(intake_subsystem, true));
+//        right_trigger.whenActive(new MoveIntakeCommand(intake_subsystem, false));
+//
+//        left_trigger = (new (arm_controller, GamepadKeys.Trigger.LEFT_TRIGGER))
+//                .whenActive(new MoveIntakeCommand(intake_subsystem, true));
 
     }
 }
