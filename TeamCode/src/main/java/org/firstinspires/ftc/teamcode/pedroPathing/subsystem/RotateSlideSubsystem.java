@@ -17,11 +17,17 @@ public class RotateSlideSubsystem extends SubsystemBase {
         rotate_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public void rotate_slides(double speed){
+    public void rotate_slides(int target_position, double speed){
+        rotate_motor.setTargetPosition(target_position);
+        rotate_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         rotate_motor.setPower(speed);
     }
-
+    public boolean is_slide_busy(){
+        // Returns true if slide is busy, else returns false
+        return rotate_motor.isBusy();
+    }
     public void stop_rotating(){
         rotate_motor.setPower(0);
+        rotate_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }

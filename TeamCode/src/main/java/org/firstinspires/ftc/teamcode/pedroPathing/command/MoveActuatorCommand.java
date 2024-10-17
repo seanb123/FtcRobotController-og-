@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ActuatorSubsystem;
 public class MoveActuatorCommand extends CommandBase {
     private ActuatorSubsystem actuator_subsystem;
     private double speed;
+
     public MoveActuatorCommand(ActuatorSubsystem subsystem, double speed){
         this.actuator_subsystem = subsystem;
         this.speed = speed;
