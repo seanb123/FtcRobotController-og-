@@ -21,6 +21,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.follower.Follower;
 @TeleOp
 public class teleop extends LinearOpMode {
     private Follower follower;
+//sean yoo
 
     private DcMotor slide_motor;
     private DcMotorEx leftFront;
