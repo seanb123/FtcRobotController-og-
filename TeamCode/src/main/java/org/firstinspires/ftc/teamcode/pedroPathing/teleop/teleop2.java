@@ -10,9 +10,11 @@ import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveIntakeCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveActuatorCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveSlideCommand;
+import org.firstinspires.ftc.teamcode.pedroPathing.command.RotateSlideCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ActuatorSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
+import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
 
 @TeleOp(name = "MainTeleop")
@@ -21,11 +23,14 @@ public class teleop2 extends CommandOpMode {
     private SlideSubsystem slide_subsystem;
     private ActuatorSubsystem actuator_subsystem;
     private IntakeSubsystem intake_subsystem;
+    private RotateSlideSubsystem rotate_slide_subsystem;
     private GamepadEx arm_controller;
-    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2;
+    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
 
     @Override
     public void initialize(){
+        // TODO: Gamepad rumble? Color sensor
+
         // Controllers
         //drive_controller = new GamepadEx(gamepad1);
         arm_controller = new GamepadEx(gamepad2);
@@ -35,6 +40,7 @@ public class teleop2 extends CommandOpMode {
         slide_subsystem = new SlideSubsystem(hardwareMap);
         actuator_subsystem = new ActuatorSubsystem(hardwareMap);
         intake_subsystem = new IntakeSubsystem(hardwareMap);
+        rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
 
         // Keybinds
         /**
@@ -67,6 +73,10 @@ public class teleop2 extends CommandOpMode {
         move_intake_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
                 .whenHeld(new MoveIntakeCommand(intake_subsystem, false));
 
+        rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.DPAD_LEFT))
+                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1));
+        rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.DPAD_RIGHT))
+                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1));
 
     }
 }
