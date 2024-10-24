@@ -96,6 +96,7 @@ public class teleop2 extends CommandOpMode {
 //                .whenActive(new MoveIntakeCommand(intake_subsystem, true));
 
     }
+    @Override
     public void run(){
         telemetry.addData("lynx infomration", LynxModule.class);
         telemetry.addData("test", "test run");
