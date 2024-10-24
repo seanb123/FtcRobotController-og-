@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.subsystem;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -14,16 +12,19 @@ public class SlideSubsystem extends SubsystemBase {
     public SlideSubsystem(HardwareMap hardwareMap){
         // Initializing hardware
         slide_motor = hardwareMap.get(DcMotorEx.class, "slideMotor");
-        slide_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide_motor.setDirection(DcMotorSimple.Direction.REVERSE);
-        slide_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         slide_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        // Encoders ONLY
+        // slide_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        // slide_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
-    public void move_slides(int target_position, double speed){
+    public void move_slides(double speed){
         // Moves the slides with encoders
-        slide_motor.setTargetPosition(target_position);
-        slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // slide_motor.setTargetPosition(target_position);
+        // slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         slide_motor.setPower(speed);
     }
 
@@ -43,7 +44,6 @@ public class SlideSubsystem extends SubsystemBase {
     public void stop_slide(){
         // Stop moving the slides
         slide_motor.setPower(0);
-        slide_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
 }

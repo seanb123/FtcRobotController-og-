@@ -2,16 +2,12 @@ package org.firstinspires.ftc.teamcode.pedroPathing.teleop;
 
 import static com.arcrobotics.ftclib.kotlin.extensions.gamepad.GamepadExExtKt.whenActive;
 
-import android.graphics.Color;
-
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
-import com.qualcomm.hardware.lynx.LynxModule;
-import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
@@ -24,13 +20,9 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
-    private ColorSensor color_sensor_L;
-//    private final I2C.Port i2cPort = I2C.Port.kOnboard;
-//    private final RevColorSensorV3 m_colorSensor = new RevColorSensorV3(i2cPort);
     private DriveSubsystem drive_subsystem;
     private SlideSubsystem slide_subsystem;
     private ActuatorSubsystem actuator_subsystem;
@@ -71,40 +63,27 @@ public class teleop2 extends CommandOpMode {
          * LEFT BUMPER -> RAISE LINEAR ACTUATORS
          * RIGHT BUMPER -> LOWER LINEAR ACTUATORS
          * */
-        hardwareMap.getAll(LynxModule.class);
-        telemetry.addData("lynx infomration", LynxModule.class);
-
-
-        // initilize color sensors
-
-
-        color_sensor_L = hardwareMap.get(ColorSensor.class, "color_sensor_L");
-
-
         drive_subsystem.setDefaultCommand(new DriveCommand(drive_subsystem, gamepad1));
 
-        raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
-                .whenPressed(new MoveSlideCommand(slide_subsystem, 7000, 1));
-        lower_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.B))
-                .whenPressed(new MoveSlideCommand(slide_subsystem, 0, 1));
+//        raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
+//                .whenPressed(new MoveSlideCommand(slide_subsystem, 7000, 1));
+//        lower_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.B))
+//                .whenPressed(new MoveSlideCommand(slide_subsystem, 0, 1));
 
         raise_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.LEFT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, 1));
         lower_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.RIGHT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, -1));
 
-        move_intake_button = (new GamepadButton(drive_controller, GamepadKeys.Button.X))
-                .whenHeld(new MoveIntakeCommand(intake_subsystem, true));
-        move_intake_button2 = (new GamepadButton(drive_controller, GamepadKeys.Button.Y))
-                .whenHeld(new MoveIntakeCommand(intake_subsystem, false));
+//        move_intake_button = (new GamepadButton(drive_controller, GamepadKeys.Button.X))
+//                .whenHeld(new MoveIntakeCommand(intake_subsystem, true));
+//        move_intake_button2 = (new GamepadButton(drive_controller, GamepadKeys.Button.Y))
+//                .whenHeld(new MoveIntakeCommand(intake_subsystem, false));
 
         rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
                 .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 700, 0.25));
         rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
                 .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 0, 0.25));
-
-
-
 
 
 //        left_trigger.whenActive(new MoveIntakeCommand(intake_subsystem, true));
@@ -113,11 +92,5 @@ public class teleop2 extends CommandOpMode {
 //        left_trigger = (new (arm_controller, GamepadKeys.Trigger.LEFT_TRIGGER))
 //                .whenActive(new MoveIntakeCommand(intake_subsystem, true));
 
-    }
-    @Override
-    public void run(){
-        telemetry.addData("lynx infomration", LynxModule.class);
-        telemetry.addData("test", "test run");
-        telemetry.update();
     }
 }

@@ -1,30 +1,31 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.command;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+import com.arcrobotics.ftclib.gamepad.GamepadEx;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
 
 public class MoveSlideCommand extends CommandBase {
     private SlideSubsystem slide_subsystem;
-    private int target_position;
-    private double speed;
+    private GamepadEx controller;
 
-    public MoveSlideCommand(SlideSubsystem subsystem, int target_position, double speed){
+    // private int target_position;
+    // private double speed;
+
+    public MoveSlideCommand(SlideSubsystem subsystem, GamepadEx controller){
         this.slide_subsystem = subsystem;
-        this.target_position = target_position;
-        this.speed = speed;
+        this.controller = controller;
+
+        // this.speed = speed;
+        // this.target_position = target_position;
 
         addRequirements(subsystem);
     }
 
     @Override
-    public void initialize(){
-        slide_subsystem.move_slides(target_position, speed);
-    }
-
-    @Override
-    public boolean isFinished(){
-        return !slide_subsystem.is_slide_busy();
+    public void execute(){
+        double left_stick_y = controller.getLeftY();
+        slide_subsystem.move_slides(left_stick_y);
     }
 
     @Override
@@ -32,4 +33,8 @@ public class MoveSlideCommand extends CommandBase {
         slide_subsystem.stop_slide();
     }
 
+    @Override
+    public boolean isFinished() {
+        return false;  // runs continuously until interrupted
+    }
 }
