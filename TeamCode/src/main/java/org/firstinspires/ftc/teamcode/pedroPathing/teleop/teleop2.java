@@ -8,6 +8,7 @@ import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
+import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
@@ -92,5 +93,10 @@ public class teleop2 extends CommandOpMode {
 //        left_trigger = (new (arm_controller, GamepadKeys.Trigger.LEFT_TRIGGER))
 //                .whenActive(new MoveIntakeCommand(intake_subsystem, true));
 
+    }
+    public void run(){
+        telemetry.addData("lynx infomration", LynxModule.class);
+        telemetry.addData("test", "test run");
+        telemetry.update();
     }
 }
