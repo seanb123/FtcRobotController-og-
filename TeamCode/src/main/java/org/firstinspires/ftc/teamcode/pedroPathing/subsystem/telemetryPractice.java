@@ -20,11 +20,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp
 public class telemetryPractice extends LinearOpMode {
-    public void initialize(){
-        waitForStart();
-    }
+
+
     @Override
     public void runOpMode(){
+        init();
+        waitForStart();
         while(opModeIsActive()){
             telemetry.addData("lynx infomration:",hardwareMap.getAll(LynxModule.class));
             telemetry.addData("test output","hello");
