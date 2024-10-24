@@ -40,9 +40,9 @@
 
     <LynxUsbDevice
         name="Expansion Hub Portal 1"
-        serialNumber="[...]" parentModuleAddress="5">
+        serialNumber="2" parentModuleAddress="5">
 
-        <LynxModule name="[...]" port="[...]">
+        <LynxModule name="1" port="[...]">
 
             <!-- The built-in IMU is always port="0" bus="0" -->
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />

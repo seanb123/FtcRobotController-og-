@@ -2,12 +2,16 @@ package org.firstinspires.ftc.teamcode.pedroPathing.teleop;
 
 import static com.arcrobotics.ftclib.kotlin.extensions.gamepad.GamepadExExtKt.whenActive;
 
+import android.graphics.Color;
+
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
+import com.qualcomm.hardware.lynx.LynxModule;
+import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
@@ -21,9 +25,12 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
     private ColorSensor color_sensor_L;
+//    private final I2C.Port i2cPort = I2C.Port.kOnboard;
+//    private final RevColorSensorV3 m_colorSensor = new RevColorSensorV3(i2cPort);
     private DriveSubsystem drive_subsystem;
     private SlideSubsystem slide_subsystem;
     private ActuatorSubsystem actuator_subsystem;
@@ -64,8 +71,14 @@ public class teleop2 extends CommandOpMode {
          * LEFT BUMPER -> RAISE LINEAR ACTUATORS
          * RIGHT BUMPER -> LOWER LINEAR ACTUATORS
          * */
+        hardwareMap.getAll(LynxModule.class);
+
         // initilize color sensors
+
+
         color_sensor_L = hardwareMap.get(ColorSensor.class, "color_sensor_L");
+
+
         drive_subsystem.setDefaultCommand(new DriveCommand(drive_subsystem, gamepad1));
 
         raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
