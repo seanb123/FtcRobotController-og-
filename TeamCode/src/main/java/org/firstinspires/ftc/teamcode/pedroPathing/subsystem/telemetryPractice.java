@@ -20,6 +20,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp
 public class telemetryPractice extends LinearOpMode {
+    public void initialize(){
+        waitForStart();
+    }
     @Override
     public void runOpMode(){
         while(opModeIsActive()){
