@@ -102,9 +102,9 @@ public class teleop2 extends CommandOpMode {
                 .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 700, 0.25));
         rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
                 .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 0, 0.25));
-        while(opModeIsActive()){
-            telemetry.addData("lynx infomration", LynxModule.class);
-        }
+
+
+
 
 
 //        left_trigger.whenActive(new MoveIntakeCommand(intake_subsystem, true));
@@ -113,5 +113,11 @@ public class teleop2 extends CommandOpMode {
 //        left_trigger = (new (arm_controller, GamepadKeys.Trigger.LEFT_TRIGGER))
 //                .whenActive(new MoveIntakeCommand(intake_subsystem, true));
 
+    }
+    @Override
+    public void run(){
+        telemetry.addData("lynx infomration", LynxModule.class);
+        telemetry.addData("test", "test run");
+        telemetry.update();
     }
 }
