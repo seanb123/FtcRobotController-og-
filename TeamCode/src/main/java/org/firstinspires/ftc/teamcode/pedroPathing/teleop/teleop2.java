@@ -65,6 +65,8 @@ public class teleop2 extends CommandOpMode {
          * RIGHT BUMPER -> LOWER LINEAR ACTUATORS
          * */
         drive_subsystem.setDefaultCommand(new DriveCommand(drive_subsystem, gamepad1));
+        slide_subsystem.setDefaultCommand(new MoveSlideCommand(slide_subsystem, arm_controller));
+        intake_subsystem.setDefaultCommand(new MoveIntakeCommand(intake_subsystem, arm_controller));
 
 //        raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
 //                .whenPressed(new MoveSlideCommand(slide_subsystem, 7000, 1));
