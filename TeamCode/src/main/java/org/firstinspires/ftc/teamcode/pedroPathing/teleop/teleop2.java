@@ -21,7 +21,6 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
-import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.telemetryPractice;
 
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
@@ -31,7 +30,6 @@ public class teleop2 extends CommandOpMode {
     private IntakeSubsystem intake_subsystem;
     private RotateSlideSubsystem rotate_slide_subsystem;
     private GamepadEx arm_controller, drive_controller;
-    private telemetryPractice telemetry_add;
 
     private Trigger left_trigger, right_trigger;
 
@@ -51,8 +49,6 @@ public class teleop2 extends CommandOpMode {
         actuator_subsystem = new ActuatorSubsystem(hardwareMap);
         intake_subsystem = new IntakeSubsystem(hardwareMap);
         rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
-        telemetry_add = new telemetryPractice();
-
 
         // Keybinds
         /**
@@ -100,5 +96,4 @@ public class teleop2 extends CommandOpMode {
 //                .whenActive(new MoveIntakeCommand(intake_subsystem, true));
 
     }
-
 }
