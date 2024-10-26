@@ -20,7 +20,7 @@ public class RotateSlideCommand extends CommandBase {
     @Override
     public void execute(){
         double right_stick_y = -controller.getRightY();
-        subsystem.rotate_slides(right_stick_y != 0 ? (right_stick_y > 0 ? right_stick_y * speed_reducer : right_stick_y * speed_reducer * 0.25) : (subsystem.get_position() >= 1200 ? (subsystem.get_position() > 1400 ? -0.25 : -0.1) : 0.25));
+        subsystem.rotate_slides(right_stick_y != 0 ? (right_stick_y > 0 ? right_stick_y * speed_reducer : right_stick_y * speed_reducer * 0.25) : (subsystem.get_position() > 1100 ? (subsystem.get_position() > 1400 ? -0.25 : -0.1) : 0.25));
     }
 
     @Override
