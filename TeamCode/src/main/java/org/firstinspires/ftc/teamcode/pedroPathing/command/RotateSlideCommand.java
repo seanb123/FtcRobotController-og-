@@ -24,18 +24,7 @@ public class RotateSlideCommand extends CommandBase {
     }
 
     @Override
-    public void execute(){
-        subsystem.hold_position();
-    }
-
-    @Override
     public void end(boolean interrupted){
         subsystem.stop_rotating();
     }
-
-    @Override
-    public boolean isFinished() {
-        return false;  // runs continuously until interrupted
-    }
-
 }

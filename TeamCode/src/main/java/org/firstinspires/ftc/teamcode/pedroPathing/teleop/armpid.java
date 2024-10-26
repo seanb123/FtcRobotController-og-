@@ -35,7 +35,7 @@ public class armpid extends OpMode {
         pid_controller.setPID(p, i, d);
         int arm_pos = arm_motor.getCurrentPosition();
         double pid = pid_controller.calculate(arm_pos, target_pos);
-        double ff = Math.cos(Math.toRadians(target_pos / ticks_in_degree)) * f;
+        double ff = Math.sin(Math.toRadians(target_pos / ticks_in_degree)) * f;
 
         double power = pid + ff;
 

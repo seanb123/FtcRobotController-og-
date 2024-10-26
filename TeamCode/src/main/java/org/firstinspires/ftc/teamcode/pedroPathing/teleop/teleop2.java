@@ -84,7 +84,7 @@ public class teleop2 extends CommandOpMode {
 //                .whenHeld(new MoveIntakeCommand(intake_subsystem, false));
 
         rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
-                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 700, 0.25));
+                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1000, 0.25));
         rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
                 .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 0, 0.25));
 

@@ -29,7 +29,12 @@ public class DriveSubsystem extends SubsystemBase {
         rightBack.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(Motor.ZeroPowerBehavior.BRAKE);
 
-        drive = new MecanumDrive(leftFront, leftBack, rightFront, rightBack);
+        leftFront.resetEncoder();
+        leftBack.resetEncoder();
+        rightFront.resetEncoder();
+        rightBack.resetEncoder();
+
+        drive = new MecanumDrive(leftFront, rightFront, leftBack, rightBack);
     }
 
     public void drive(double forward, double strafe, double rotate){
