@@ -67,6 +67,7 @@ public class teleop2 extends CommandOpMode {
         drive_subsystem.setDefaultCommand(new DriveCommand(drive_subsystem, gamepad1));
         slide_subsystem.setDefaultCommand(new MoveSlideCommand(slide_subsystem, arm_controller));
         intake_subsystem.setDefaultCommand(new MoveIntakeCommand(intake_subsystem, arm_controller));
+        rotate_slide_subsystem.setDefaultCommand(new RotateSlideCommand(rotate_slide_subsystem, arm_controller));
 
 //        raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
 //                .whenPressed(new MoveSlideCommand(slide_subsystem, 7000, 1));
@@ -83,10 +84,10 @@ public class teleop2 extends CommandOpMode {
 //        move_intake_button2 = (new GamepadButton(drive_controller, GamepadKeys.Button.Y))
 //                .whenHeld(new MoveIntakeCommand(intake_subsystem, false));
 
-        rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
-                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1000, 0.25));
-        rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
-                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 0, 0.25));
+//        rotate_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
+//                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 1000, 0.25));
+//        rotate_button2 = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
+//                .whenPressed(new RotateSlideCommand(rotate_slide_subsystem, 0, 0.25));
 
 
 //        left_trigger.whenActive(new MoveIntakeCommand(intake_subsystem, true));
