@@ -52,7 +52,7 @@
             <!--color sensor-->
 <!--        <RevColorSensorV3 name="[...]" port="0" bus="[...]" />-->
 
-        <LynxModule name="Expansion Hub 1" port="RS485">
+        <LynxModule name="Expansion Hub 1" port="1">
         <!--Expansion hub configurations-->
 
 
