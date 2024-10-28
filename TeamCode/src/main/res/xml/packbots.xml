@@ -53,7 +53,7 @@
 
 
 
-            <Motor name="slideMotor"  port="0" />
+<!--            <Motor name="slideMotor"  port="0" />-->
             <!--            <goBILDA5201SeriesMotor name="slideMotor" port="0" />-->
             <goBILDA5202SeriesMotor name="actuatorMotor" port="1" />
             <goBILDA5202SeriesMotor name="rotateMotor" port="2" />
