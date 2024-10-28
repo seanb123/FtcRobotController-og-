@@ -43,12 +43,8 @@
         serialNumber="(embedded)" parentModuleAddress="2">
         <!--control hub configurations-->
         <!--motors-->
-        <goBILDA5201SeriesMotor name="leftFront" port="0" />
-        <goBILDA5201SeriesMotor name="rightFront" port="1" />
-        <goBILDA5202SeriesMotor name="leftBack" port="2" />
-        <goBILDA5202SeriesMotor name="rightBack" port="3" />
-            <!--servos -->
-        <ContinuousRotationServo name="intakeServo" port="5" />
+
+
             <!--color sensor-->
 <!--        <RevColorSensorV3 name="[...]" port="0" bus="[...]" />-->
 
@@ -89,9 +85,9 @@
             GoBILDA Gearmotors
              -->
             <!--motors-->
-            <goBILDA5201SeriesMotor name="slideMotor" port="0" />
-            <goBILDA5202SeriesMotor name="actuatorMotor" port="1" />
-            <goBILDA5202SeriesMotor name="rotateMotor" port="2" />
+            <goBILDA5201SeriesMotor name="slide_motor" port="0" />
+            <goBILDA5202SeriesMotor name="actuator_motor" port="1" />
+            <goBILDA5202SeriesMotor name="rotate_motor" port="2" />
 
 
 
@@ -196,6 +192,7 @@
             <goBILDA5201SeriesMotor name="rightFront" port="1" />
             <goBILDA5202SeriesMotor name="leftBack" port="2" />
             <goBILDA5202SeriesMotor name="rightBack" port="3" />
+            <ContinuousRotationServo name="intakeServo" port="5" />
         </LynxModule>
     </LynxUsbDevice>
 
