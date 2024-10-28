@@ -191,11 +191,12 @@
             ************************************************************* -->
 
 <!--        </LynxModule>-->
+        <LynxModule name="Control Hub" port="2">
+            <goBILDA5201SeriesMotor name="leftFront" port="0" />
+            <goBILDA5201SeriesMotor name="rightFront" port="1" />
+            <goBILDA5202SeriesMotor name="leftBack" port="2" />
+            <goBILDA5202SeriesMotor name="rightBack" port="3" />
+        </LynxModule>
     </LynxUsbDevice>
-    <LynxModule name="Control Hub" port="2">
-        <goBILDA5201SeriesMotor name="leftFront" port="0" />
-        <goBILDA5201SeriesMotor name="rightFront" port="1" />
-        <goBILDA5202SeriesMotor name="leftBack" port="2" />
-        <goBILDA5202SeriesMotor name="rightBack" port="3" />
-    </LynxModule>
+
 </Robot>
