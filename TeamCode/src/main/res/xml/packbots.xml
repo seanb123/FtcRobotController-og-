@@ -52,8 +52,11 @@
         <!--Expansion hub configurations-->
 
 
-            <!-- The built-in IMU is always port="0" bus="0" -->
-            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+
+            <Motor name="slideMotor"  port="0" />
+            <!--            <goBILDA5201SeriesMotor name="slideMotor" port="0" />-->
+            <goBILDA5202SeriesMotor name="actuatorMotor" port="1" />
+            <goBILDA5202SeriesMotor name="rotateMotor" port="2" />
 
             <!-- **********************************************************
 
@@ -85,10 +88,7 @@
             GoBILDA Gearmotors
              -->
             <!--motors-->
-            <Motor name="slideMotor"  port="0" />
-<!--            <goBILDA5201SeriesMotor name="slideMotor" port="0" />-->
-            <goBILDA5202SeriesMotor name="actuatorMotor" port="1" />
-            <goBILDA5202SeriesMotor name="rotateMotor" port="2" />
+
 
 
 
@@ -189,6 +189,8 @@
 
 <!--        </LynxModule>-->
         <LynxModule name="Control Hub" port="2">
+            <!-- The built-in IMU is always port="0" bus="0" -->
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
             <goBILDA5201SeriesMotor name="leftFront" port="0" />
             <goBILDA5201SeriesMotor name="rightFront" port="1" />
             <goBILDA5202SeriesMotor name="leftBack" port="2" />
