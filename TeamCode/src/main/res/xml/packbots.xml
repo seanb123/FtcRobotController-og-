@@ -39,7 +39,7 @@
     -->
 
     <LynxUsbDevice
-        name="Control Hub"
+        name="Control Hub Portal"
         serialNumber="(embedded)" parentModuleAddress="2">
         <!--control hub configurations-->
         <!--motors-->
@@ -192,4 +192,10 @@
 
 <!--        </LynxModule>-->
     </LynxUsbDevice>
+    <LynxModule name="Control Hub" port="2">
+        <goBILDA5201SeriesMotor name="leftFront" port="0" />
+        <goBILDA5201SeriesMotor name="rightFront" port="1" />
+        <goBILDA5202SeriesMotor name="leftBack" port="2" />
+        <goBILDA5202SeriesMotor name="rightBack" port="3" />
+    </LynxModule>
 </Robot>
