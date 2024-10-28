@@ -82,7 +82,7 @@
 
             ************************************************************* -->
 
-            <Motor name=".."  port="[...]" /> <!-- Yellow -->
+<!--            <Motor name=".."  port="[...]" /> &lt;!&ndash; Yellow &ndash;&gt;-->
 
 
             <!--
@@ -111,7 +111,7 @@
 
             ************************************************************* -->
 
-            <Servo name="[...] port=[...]" />
+<!--            <Servo name="[...] port=[...]" />-->
 
 
             <!--
@@ -146,8 +146,8 @@
 
             ************************************************************* -->
 
-            <DigitalDevice name="[...]" port="[... (odd)]" />
-            <RevTouchSensor name="[...] port=[... (odd)]" />
+<!--            <DigitalDevice name="[...]" port="[... (odd)]" />-->
+<!--            <RevTouchSensor name="[...] port=[... (odd)]" />-->
 
             <!-- *************************************************************
 
@@ -161,11 +161,11 @@
             ************************************************************* -->
 
             <!-- REV Time-of-Flight 2m Distance Sensor -->
-            <REV_VL53L0X_RANGE_SENSOR name="[...]" port="0" bus="[...]" />
+<!--            <REV_VL53L0X_RANGE_SENSOR name="[...]" port="0" bus="[...]" />-->
 
-            <!-- V1 and V2 of the REV color/distance sensor -->
+<!--            &lt;!&ndash; V1 and V2 of the REV color/distance sensor &ndash;&gt;-->
 
-            <LynxColorSensor name="[...]" port="0" bus="[...]" />
+<!--            <LynxColorSensor name="[...]" port="0" bus="[...]" />-->
 
             <!--
 
@@ -178,10 +178,10 @@
 
 
 
-            <RevBlinkinLedDriver name="[...]" port="0" bus="[...]" />
+<!--            <RevBlinkinLedDriver name="[...]" port="0" bus="[...]" />-->
         </LynxModule>
 
-        <LynxModule name="Secondary Hub" port="3">
+<!--        <LynxModule name="Secondary Hub" port="3">-->
 
             <!-- *************************************************************
 
@@ -190,6 +190,6 @@
 
             ************************************************************* -->
 
-        </LynxModule>
+<!--        </LynxModule>-->
     </LynxUsbDevice>
 </Robot>
