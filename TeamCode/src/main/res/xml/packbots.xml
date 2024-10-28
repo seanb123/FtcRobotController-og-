@@ -85,9 +85,10 @@
             GoBILDA Gearmotors
              -->
             <!--motors-->
-            <goBILDA5201SeriesMotor name="slide_motor" port="0" />
-            <goBILDA5202SeriesMotor name="actuator_motor" port="1" />
-            <goBILDA5202SeriesMotor name="rotate_motor" port="2" />
+            <Motor name="slideMotor"  port="0" />
+<!--            <goBILDA5201SeriesMotor name="slideMotor" port="0" />-->
+            <goBILDA5202SeriesMotor name="actuatorMotor" port="1" />
+            <goBILDA5202SeriesMotor name="rotateMotor" port="2" />
 
 
 
