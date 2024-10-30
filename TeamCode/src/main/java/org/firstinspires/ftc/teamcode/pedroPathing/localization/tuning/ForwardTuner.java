@@ -57,6 +57,7 @@ public class ForwardTuner extends OpMode {
      */
     @Override
     public void loop() {
+
         poseUpdater.update();
 
         telemetryA.addData("distance moved", poseUpdater.getPose().getX());
@@ -68,4 +69,5 @@ public class ForwardTuner extends OpMode {
         Drawing.drawRobot(poseUpdater.getPose(), "#4CAF50");
         Drawing.sendPacket();
     }
+
 }
