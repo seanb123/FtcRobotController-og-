@@ -1,14 +1,10 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.teleop;
 
-import static com.arcrobotics.ftclib.kotlin.extensions.gamepad.GamepadExExtKt.whenActive;
-
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
 import com.arcrobotics.ftclib.gamepad.GamepadKeys;
-import com.arcrobotics.ftclib.gamepad.TriggerReader;
-import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
@@ -22,6 +18,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.telemetryPractice;
+import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ColorSensor;
 
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
@@ -32,6 +29,7 @@ public class teleop2 extends CommandOpMode {
     private RotateSlideSubsystem rotate_slide_subsystem;
     private GamepadEx arm_controller, drive_controller;
     private telemetryPractice telemetry_add;
+    private ColorSensor color_sensor;
 
     private Trigger left_trigger, right_trigger;
 
@@ -46,6 +44,7 @@ public class teleop2 extends CommandOpMode {
         arm_controller = new GamepadEx(gamepad2);
 
         // Subsystems
+        color_sensor = new ColorSensor();
         drive_subsystem = new DriveSubsystem(hardwareMap);
         slide_subsystem = new SlideSubsystem(hardwareMap);
         actuator_subsystem = new ActuatorSubsystem(hardwareMap);

@@ -42,7 +42,7 @@
         name="Expansion Hub Portal 1"
         serialNumber="2" parentModuleAddress="5">
 
-        <LynxModule name="1" port="[...]">
+        <LynxModule name="1" port="0">
 
             <!-- The built-in IMU is always port="0" bus="0" -->
             <LynxEmbeddedIMU name="imu" port="0" bus="0" />
@@ -185,7 +185,7 @@
 
             -->
 
-            <RevColorSensorV3 name="[...]" port="0" bus="[...]" />
+
 
             <RevBlinkinLedDriver name="[...]" port="0" bus="[...]" />
         </LynxModule>
