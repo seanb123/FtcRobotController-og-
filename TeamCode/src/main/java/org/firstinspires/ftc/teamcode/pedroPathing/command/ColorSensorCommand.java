@@ -9,7 +9,7 @@ public class ColorSensorCommand extends CommandBase {
     public ColorSensorCommand(ColorSensor2 subsystem){
         this.color_sensor = subsystem;
 
-
+//sus
         addRequirements(subsystem);
     }
     @Override
