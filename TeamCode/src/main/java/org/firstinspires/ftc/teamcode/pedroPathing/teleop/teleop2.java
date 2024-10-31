@@ -11,6 +11,7 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.command.ClimbCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveIntakeCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveActuatorCommand;
@@ -31,7 +32,7 @@ public class teleop2 extends CommandOpMode {
     private RotateSlideSubsystem rotate_slide_subsystem;
     private GamepadEx arm_controller, drive_controller;
 
-    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
+    private com.arcrobotics.ftclib.command.button.Button raise_actuator_button, lower_actuator_button, climb_button;
 
     @Override
     public void initialize(){
@@ -55,10 +56,11 @@ public class teleop2 extends CommandOpMode {
          * RIGHT STICK -> ROTATION
 
          * GAMEPAD 2
-         * BUTTON A -> EXTENDS LINEAR SLIDES
-         * BUTTON B -> RETRACTS LINEAR SLIDES
-         * BUTTON X -> SPINS INTAKE CLOCKWISE
-         * BUTTON Y -> SPINS INTAKE COUNTERCLOCKWISE
+         * BUTTON X -> CLIMB
+         * LEFT STICK -> EXTEND/RETRACT LINEAR SLIDES
+         * RIGHT STICK -> ROTATE ARM
+         * LEFT TRIGGER -> INTAKE
+         * RIGHT TRIGGER -> OUTTAKE
          * LEFT BUMPER -> RAISE LINEAR ACTUATORS
          * RIGHT BUMPER -> LOWER LINEAR ACTUATORS
          * */
@@ -76,6 +78,9 @@ public class teleop2 extends CommandOpMode {
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, 1));
         lower_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.RIGHT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, -1));
+
+        climb_button = (new GamepadButton(arm_controller, GamepadKeys.Button.X))
+                .whenPressed(new ClimbCommand(rotate_slide_subsystem));
 
 //        move_intake_button = (new GamepadButton(drive_controller, GamepadKeys.Button.X))
 //                .whenHeld(new MoveIntakeCommand(intake_subsystem, true));
