@@ -21,6 +21,12 @@ public class RotateSlideSubsystem extends SubsystemBase {
         rotate_motor.setPower(speed);
     }
 
+    public void climb(){
+        rotate_motor.setTargetPosition(3000);
+        rotate_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rotate_motor.setPower(1);
+    }
+
     public double get_position(){
         return rotate_motor.getCurrentPosition();
     }
