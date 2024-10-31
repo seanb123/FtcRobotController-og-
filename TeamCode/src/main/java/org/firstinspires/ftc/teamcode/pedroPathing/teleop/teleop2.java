@@ -10,7 +10,10 @@ import com.arcrobotics.ftclib.gamepad.GamepadKeys;
 import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.arcrobotics.ftclib.command.CommandScheduler;
 
+import org.firstinspires.ftc.teamcode.pedroPathing.command.ColorSensorCommand;
+import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveIntakeCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveActuatorCommand;
@@ -21,6 +24,8 @@ import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
+import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ColorSensor2;
+
 
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
@@ -30,9 +35,13 @@ public class teleop2 extends CommandOpMode {
     private IntakeSubsystem intake_subsystem;
     private RotateSlideSubsystem rotate_slide_subsystem;
     private GamepadEx arm_controller, drive_controller;
+    private ColorSensor2 color_sensor;
+
+
 
     private Trigger left_trigger, right_trigger;
 
+    private ColorSensorCommand color_sensor_command;
     private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
 
     @Override
@@ -49,6 +58,7 @@ public class teleop2 extends CommandOpMode {
         actuator_subsystem = new ActuatorSubsystem(hardwareMap);
         intake_subsystem = new IntakeSubsystem(hardwareMap);
         rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
+        color_sensor = new ColorSensor2(hardwareMap);
 
         // Keybinds
         /**
@@ -64,10 +74,13 @@ public class teleop2 extends CommandOpMode {
          * LEFT BUMPER -> RAISE LINEAR ACTUATORS
          * RIGHT BUMPER -> LOWER LINEAR ACTUATORS
          * */
+//        color sensor
+        color_sensor.setDefaultCommand(color_sensor_command);
         drive_subsystem.setDefaultCommand(new DriveCommand(drive_subsystem, gamepad1));
         slide_subsystem.setDefaultCommand(new MoveSlideCommand(slide_subsystem, arm_controller));
         intake_subsystem.setDefaultCommand(new MoveIntakeCommand(intake_subsystem, arm_controller));
         rotate_slide_subsystem.setDefaultCommand(new RotateSlideCommand(rotate_slide_subsystem, arm_controller));
+
 
 //        raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
 //                .whenPressed(new MoveSlideCommand(slide_subsystem, 7000, 1));
