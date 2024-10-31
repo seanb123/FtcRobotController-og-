@@ -31,8 +31,6 @@ public class teleop2 extends CommandOpMode {
     private RotateSlideSubsystem rotate_slide_subsystem;
     private GamepadEx arm_controller, drive_controller;
 
-    private Trigger left_trigger, right_trigger;
-
     private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
 
     @Override
