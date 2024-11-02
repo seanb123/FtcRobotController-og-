@@ -40,7 +40,7 @@ public class DriveEncoderLocalizer extends Localizer {
     private double totalHeading;
     public static double FORWARD_TICKS_TO_INCHES = 1;
     public static double STRAFE_TICKS_TO_INCHES = 1;
-    public static double TURN_TICKS_TO_RADIANS = 0.0866;
+    public static double TURN_TICKS_TO_RADIANS = 0.13;
     public static double ROBOT_WIDTH = 1;
     public static double ROBOT_LENGTH = 1;
 
