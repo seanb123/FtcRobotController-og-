@@ -39,13 +39,24 @@
     -->
 
     <LynxUsbDevice
-        name="Expansion Hub Portal 1"
-        serialNumber="2" parentModuleAddress="5">
+        name="Control Hub Portal"
+        serialNumber="(embedded)" parentModuleAddress="2">
+        <!--control hub configurations-->
+        <!--motors-->
 
-        <LynxModule name="1" port="[...]">
 
-            <!-- The built-in IMU is always port="0" bus="0" -->
-            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <!--color sensor-->
+<!--        <RevColorSensorV3 name="[...]" port="0" bus="[...]" />-->
+
+        <LynxModule name="Expansion Hub 1" port="1">
+        <!--Expansion hub configurations-->
+
+
+
+
+            <goBILDA5201SeriesMotor name="slideMotor" port="0" />
+            <goBILDA5202SeriesMotor name="actuatorMotor" port="1" />
+            <goBILDA5202SeriesMotor name="rotateMotor" port="2" />
 
             <!-- **********************************************************
 
@@ -70,41 +81,18 @@
 
             ************************************************************* -->
 
-            <Motor name=".."  port="[...]" /> <!-- Yellow -->
+<!--            <Motor name=".."  port="[...]" /> &lt;!&ndash; Yellow &ndash;&gt;-->
 
-            <!--
-            Andymark Gearmotors
-
-            IMPORTANT: The NeveRest20GearMotor type does not contain
-            appropriate values for the orbital gear motor! You will need to
-            set these directly in software (at least for now)
-            -->
-
-            <NeveRest3.7v1Gearmotor name="[...]" port="[...]" />
-            <NeveRest20Gearmotor name="[...]" port="[...]" />
-            <NeveRest40Gearmotor name="[...]" port="[...]" />
-            <NeveRest60Gearmotor name="[...]" port="[...]" />
-
-            <!--
-            REV Robotics Gearmotors
-            -->
-
-            <RevRobotics20HDHexMotor name="[...]" port="[...]" />
-            <RevRobotics40HDHexMotor name="[...]" port="[...]" />
-            <RevRoboticsCoreHexMotor name="[...]" port="[...]" />
 
             <!--
             GoBILDA Gearmotors
              -->
+            <!--motors-->
 
-            <goBILDA5201SeriesMotor name="[...]" port="[...]" />
-            <goBILDA5202SeriesMotor name="[...]" port="[...]" />
 
-            <!--
-            Tetrix Gearmotors
-            -->
 
-            <TetrixMotor  name="[...]" port="[...]" />
+
+
 
             <!-- *************************************************************
 
@@ -120,8 +108,8 @@
 
             ************************************************************* -->
 
-            <Servo name="[...] port=[...]" />
-            <ContinuousRotationServo name="[...]" port="[...]" />
+<!--            <Servo name="[...] port=[...]" />-->
+
 
             <!--
 
@@ -131,7 +119,7 @@
 
             -->
 
-            <RevSPARKMini name="[...]" port="[...]" />
+<!--            <RevSPARKMini name="[...]" port="[...]" />-->
 
             <!-- *************************************************************
 
@@ -155,8 +143,8 @@
 
             ************************************************************* -->
 
-            <DigitalDevice name="[...]" port="[... (odd)]" />
-            <RevTouchSensor name="[...] port=[... (odd)]" />
+<!--            <DigitalDevice name="[...]" port="[... (odd)]" />-->
+<!--            <RevTouchSensor name="[...] port=[... (odd)]" />-->
 
             <!-- *************************************************************
 
@@ -170,11 +158,11 @@
             ************************************************************* -->
 
             <!-- REV Time-of-Flight 2m Distance Sensor -->
-            <REV_VL53L0X_RANGE_SENSOR name="[...]" port="0" bus="[...]" />
+<!--            <REV_VL53L0X_RANGE_SENSOR name="[...]" port="0" bus="[...]" />-->
 
-            <!-- V1 and V2 of the REV color/distance sensor -->
+<!--            &lt;!&ndash; V1 and V2 of the REV color/distance sensor &ndash;&gt;-->
 
-            <LynxColorSensor name="[...]" port="0" bus="[...]" />
+<!--            <LynxColorSensor name="[...]" port="0" bus="[...]" />-->
 
             <!--
 
@@ -185,12 +173,12 @@
 
             -->
 
-            <RevColorSensorV3 name="[...]" port="0" bus="[...]" />
 
-            <RevBlinkinLedDriver name="[...]" port="0" bus="[...]" />
+
+<!--            <RevBlinkinLedDriver name="[...]" port="0" bus="[...]" />-->
         </LynxModule>
 
-        <LynxModule name="Secondary Hub" port="3">
+<!--        <LynxModule name="Secondary Hub" port="3">-->
 
             <!-- *************************************************************
 
@@ -199,6 +187,16 @@
 
             ************************************************************* -->
 
+<!--        </LynxModule>-->
+        <LynxModule name="Control Hub" port="2">
+            <!-- The built-in IMU is always port="0" bus="0" -->
+            <LynxEmbeddedIMU name="imu" port="0" bus="0" />
+            <goBILDA5201SeriesMotor name="leftFront" port="0" />
+            <goBILDA5201SeriesMotor name="rightFront" port="1" />
+            <goBILDA5202SeriesMotor name="leftBack" port="2" />
+            <goBILDA5202SeriesMotor name="rightBack" port="3" />
+            <ContinuousRotationServo name="intakeServo" port="5" />
         </LynxModule>
     </LynxUsbDevice>
+
 </Robot>
