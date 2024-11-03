@@ -3,13 +3,21 @@ package org.firstinspires.ftc.teamcode.pedroPathing.localization.tuning;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-
+import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.localization.PoseUpdater;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.DashboardPoseTracker;
 import org.firstinspires.ftc.teamcode.pedroPathing.util.Drawing;
+
+import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.leftFrontMotorName;
+import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.leftRearMotorName;
+import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.rightFrontMotorName;
+import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.rightRearMotorName;
 
 /**
  * This is the ForwardTuner OpMode. This tracks the forward movement of the robot and displays the
@@ -27,6 +35,11 @@ import org.firstinspires.ftc.teamcode.pedroPathing.util.Drawing;
 @Config
 @Autonomous(name = "Forward Localizer Tuner", group = "Autonomous Pathing Tuning")
 public class ForwardTuner extends OpMode {
+    private Motor leftFront;
+    private Motor leftBack;
+    private Motor rightFront;
+    private Motor rightBack;
+    private MecanumDrive drive;
     private PoseUpdater poseUpdater;
     private DashboardPoseTracker dashboardPoseTracker;
 
@@ -34,11 +47,16 @@ public class ForwardTuner extends OpMode {
 
     public static double DISTANCE = 30;
 
+
     /**
      * This initializes the PoseUpdater as well as the FTC Dashboard telemetry.
      */
     @Override
     public void init() {
+        leftFront = new Motor(hardwareMap, leftFrontMotorName, Motor.GoBILDA.RPM_312);
+        leftBack = new Motor(hardwareMap, leftRearMotorName, Motor.GoBILDA.RPM_312);
+        rightBack = new Motor(hardwareMap, rightRearMotorName, Motor.GoBILDA.RPM_312);
+        rightFront = new Motor(hardwareMap, rightFrontMotorName, Motor.GoBILDA.RPM_312);
         poseUpdater = new PoseUpdater(hardwareMap);
 
         dashboardPoseTracker = new DashboardPoseTracker(poseUpdater);
@@ -59,6 +77,15 @@ public class ForwardTuner extends OpMode {
     public void loop() {
 
         poseUpdater.update();
+
+        telemetry.addData("leftFront", leftFront.getCurrentPosition());
+        telemetry.addData("rightFront", rightFront.getCurrentPosition());
+        telemetry.addData("leftBack", leftBack.getCurrentPosition());
+        telemetry.addData("rightBack", rightBack.getCurrentPosition());
+
+        telemetry.update();
+
+
 
         telemetryA.addData("distance moved", poseUpdater.getPose().getX());
         telemetryA.addLine("The multiplier will display what your forward ticks to inches should be to scale your current distance to " + DISTANCE + " inches.");
