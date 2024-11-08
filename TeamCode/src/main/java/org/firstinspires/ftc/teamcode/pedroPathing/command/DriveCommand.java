@@ -24,6 +24,22 @@ public class DriveCommand extends CommandBase {
         double rotate = -gamepad.right_stick_x;
 
         driveSubsystem.drive(forward, strafe, rotate);
+
+        if (gamepad.dpad_left){
+            driveSubsystem.drive(0, 0.7, 0);
+        }
+
+        if (gamepad.dpad_right){
+            driveSubsystem.drive(0, -0.7, 0);
+        }
+
+        if (gamepad.dpad_up){
+            driveSubsystem.drive(-0.75, 0, 0);
+        }
+
+        if (gamepad.dpad_down){
+            driveSubsystem.drive(0.75, 0, 0);
+        }
     }
 
     @Override

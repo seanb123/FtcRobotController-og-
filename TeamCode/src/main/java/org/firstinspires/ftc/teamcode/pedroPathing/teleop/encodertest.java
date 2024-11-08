@@ -23,26 +23,11 @@ public class encodertest extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()){
-            if(gamepad1.a){
-                leftFront.setPower(1);
-            } else{
-                leftFront.setPower(0);
-            }
-            if(gamepad1.b){
-                rightFront.setPower(1);
-            } else{
-                rightFront.setPower(0);
-            }
-            if(gamepad1.x){
-                leftBack.setPower(1);
-            } else{
-                leftBack.setPower(0);
-            }
-            if(gamepad1.y){
-                rightBack.setPower(1);
-            }else {
-                rightBack.setPower(0);
-            }
+            leftFront.setPower(0.25);
+            rightFront.setPower(0.25);
+            leftBack.setPower(0.25);
+            rightBack.setPower(0.25);
+
 
             telemetry.addData("Left front: ", leftFront.getCurrentPosition());
             telemetry.addData("Right front: ", rightFront.getCurrentPosition());

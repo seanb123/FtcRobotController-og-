@@ -11,6 +11,8 @@ import com.arcrobotics.ftclib.gamepad.TriggerReader;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.pedroPathing.command.ArmScoreCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveIntakeCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveActuatorCommand;
@@ -73,6 +75,9 @@ public class teleop2 extends CommandOpMode {
 //                .whenPressed(new MoveSlideCommand(slide_subsystem, 7000, 1));
 //        lower_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.B))
 //                .whenPressed(new MoveSlideCommand(slide_subsystem, 0, 1));
+
+        raise_arm_button = (new GamepadButton(arm_controller, GamepadKeys.Button.A))
+                .whenPressed(new ArmScoreCommand(rotate_slide_subsystem));
 
         raise_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.LEFT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, 1));

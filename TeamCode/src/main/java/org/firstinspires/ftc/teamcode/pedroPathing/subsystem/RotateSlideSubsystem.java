@@ -27,8 +27,22 @@ public class RotateSlideSubsystem extends SubsystemBase {
         rotate_motor.setPower(1);
     }
 
+    public void goto_score_position(){
+        rotate_motor.setTargetPosition(1300);
+        rotate_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rotate_motor.setPower(1);
+    }
+
     public double get_position(){
         return rotate_motor.getCurrentPosition();
+    }
+
+    public boolean reached_position(){
+        return Math.abs(1300 - rotate_motor.getCurrentPosition()) <= 50;
+    }
+
+    public void stop_using_encoder(){
+        rotate_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void stop_rotating(){
