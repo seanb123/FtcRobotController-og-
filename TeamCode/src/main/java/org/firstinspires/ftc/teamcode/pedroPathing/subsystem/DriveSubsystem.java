@@ -1,10 +1,5 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.subsystem;
 
-import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.leftFrontMotorName;
-import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.leftRearMotorName;
-import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.rightFrontMotorName;
-import static org.firstinspires.ftc.teamcode.pedroPathing.tuning.FollowerConstants.rightRearMotorName;
-
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
@@ -16,6 +11,10 @@ public class DriveSubsystem extends SubsystemBase {
     private Motor rightFront;
     private Motor rightBack;
     private MecanumDrive drive;
+    private String leftFrontMotorName = "leftFront";
+    private String rightFrontMotorName = "rightFront";
+    private String leftRearMotorName = "leftBack";
+    private String rightRearMotorName = "rightBack";
 
     public DriveSubsystem(HardwareMap hardwareMap){
         // Initializing hardware
