@@ -10,6 +10,8 @@ public class ArmScoreCommand extends CommandBase {
 
     public ArmScoreCommand(RotateSlideSubsystem rotate_subsystem){
         this.rotate_subsystem = rotate_subsystem;
+
+        addRequirements(rotate_subsystem);
     }
 
     @Override
