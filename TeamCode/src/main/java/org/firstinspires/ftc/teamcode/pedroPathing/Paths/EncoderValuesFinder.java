@@ -12,9 +12,9 @@ public class EncoderValuesFinder extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        motor = hardwareMap.get(DcMotor.class, "yourMotorName"); // Replace with your motor name
-        motor.setDirection(DcMotorSimple.Direction.FORWARD); // Set motor direction if needed
-        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Start without encoder for manual control
+        motor = hardwareMap.get(DcMotor.class, "slideMotor");
+        motor.setDirection(DcMotorSimple.Direction.FORWARD);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Instructions", "Use game pad to control the motor.");
         telemetry.addData("Press A", "to record the current encoder value.");
