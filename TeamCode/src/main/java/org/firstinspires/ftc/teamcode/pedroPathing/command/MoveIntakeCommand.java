@@ -25,7 +25,7 @@ public class MoveIntakeCommand extends CommandBase {
         if (left_trigger > 0){
             intake_subsystem.move_intake(true);
         } else if (right_trigger > 0){
-            intake_subsystem.move_intake(false);
+            intake_subsystem.move_intake_slow(false);
         } else {
             intake_subsystem.stop_intake();
         }
