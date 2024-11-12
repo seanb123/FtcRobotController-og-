@@ -23,16 +23,14 @@ public class EncoderValuesFinder extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            // Manual motor control
             double power = gamepad1.left_stick_y;
             motor.setPower(power);
 
-            // Record encoder value
             if (gamepad1.a) {
                 int encoderValue = motor.getCurrentPosition();
                 telemetry.addData("Recorded Encoder Value", encoderValue);
                 telemetry.update();
-                sleep(500); // Short delay to avoid multiple recordings
+                sleep(500);
             }
 
             telemetry.addData("Current Encoder Value", motor.getCurrentPosition());
