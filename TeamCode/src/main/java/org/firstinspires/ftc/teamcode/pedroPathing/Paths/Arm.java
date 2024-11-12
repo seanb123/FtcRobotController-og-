@@ -13,6 +13,8 @@ public class Arm {
 
     public Arm(HardwareMap hardwareMap) {
         armMotor = hardwareMap.get(DcMotorEx.class, "liftMotor"); // Assuming "liftMotor" is the name of your arm motor
+        armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         armMotor.setDirection(DcMotorSimple.Direction.FORWARD);
     }
@@ -58,7 +60,7 @@ public class Arm {
                 armMotor.setPower(-0.8);
                 initialized = true;
             }
-//
+
             double pos = armMotor.getCurrentPosition();
             packet.put("liftPos", pos);
             if (pos > 100.0) {

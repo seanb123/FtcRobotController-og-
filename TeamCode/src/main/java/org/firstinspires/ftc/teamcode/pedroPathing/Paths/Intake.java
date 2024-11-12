@@ -12,6 +12,7 @@ public class Intake {
     //Constructor
     public Intake(HardwareMap hardwareMap) {
         intake_servo = hardwareMap.get(CRServo.class, "intakeServo");
+        intake_servo.setDirection(CRServo.Direction.FORWARD);
     }
     //Actions
     public interface Action {
@@ -32,7 +33,7 @@ public class Intake {
     public Action intake(){
         return new intake();
     }
-    //
+
     public class Output implements Action{
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {

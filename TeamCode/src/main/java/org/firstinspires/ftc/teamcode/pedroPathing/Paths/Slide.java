@@ -10,6 +10,8 @@ public class Slide {
     private DcMotor slideMotor;
     public Slide(HardwareMap hardwareMap) {
         slideMotor = hardwareMap.get(DcMotor.class, "slideMotor");
+        slideMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
     public interface Action {
@@ -17,7 +19,7 @@ public class Slide {
     }
     public class extendSlide implements Action{
         private boolean initialized = false;
-//
+
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
 
