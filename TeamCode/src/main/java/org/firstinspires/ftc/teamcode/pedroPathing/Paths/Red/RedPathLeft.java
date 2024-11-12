@@ -30,7 +30,7 @@ public class RedPathLeft extends LinearOpMode {
         Arm arm = new Arm(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         Slide slide = new Slide(hardwareMap);
-
+//
 
         int visionOutputPosition = 1;
         //TODO Make actual Path use Meep Meep and transfer said path here later

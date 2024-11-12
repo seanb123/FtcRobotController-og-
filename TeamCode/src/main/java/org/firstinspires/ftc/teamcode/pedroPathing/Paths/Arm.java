@@ -58,7 +58,7 @@ public class Arm {
                 armMotor.setPower(-0.8);
                 initialized = true;
             }
-
+//
             double pos = armMotor.getCurrentPosition();
             packet.put("liftPos", pos);
             if (pos > 100.0) {
