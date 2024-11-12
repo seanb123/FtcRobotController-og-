@@ -12,7 +12,7 @@ public class Arm {
     private DcMotorEx armMotor;
 
     public Arm(HardwareMap hardwareMap) {
-        armMotor = hardwareMap.get(DcMotorEx.class, "liftMotor"); // Assuming "liftMotor" is the name of your arm motor
+        armMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -39,10 +39,10 @@ public class Arm {
             packet.put("liftPos", pos);
 
             if (armMotor.isBusy()) {
-                return true; // Continue running until target is reached
+                return true;
             } else {
-                armMotor.setPower(0.2); // Hold position with a lower power
-                return false; // Stop running the action
+                armMotor.setPower(0.2);
+                return false;
             }
         }
     }

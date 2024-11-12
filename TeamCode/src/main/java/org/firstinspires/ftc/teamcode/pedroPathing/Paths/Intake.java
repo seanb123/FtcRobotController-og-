@@ -19,15 +19,25 @@ public class Intake {
         boolean run(@NonNull TelemetryPacket packet);
     }
     //Intake
-    public class intake implements Action{
+    public class intake implements Action {
         private boolean initialized = false;
+        private long startTime;
+
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
             if (!initialized) {
                 intake_servo.setPower(1);
-                initialized = true;
+                startTime = System.currentTimeMillis();
             }
-            return false;
+
+            long elapsedTime = System.currentTimeMillis() - startTime;
+
+            if (elapsedTime < 3000) {
+                return true;
+            } else {
+                intake_servo.setPower(0);
+                return false;
+            }
         }
     }
     public Action intake(){
@@ -35,10 +45,23 @@ public class Intake {
     }
 
     public class Output implements Action{
+        private boolean initialized = false;
+        private long startTime;
+
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
-            intake_servo.setPower(-1);
-            return false;
+            if (!initialized) {
+                intake_servo.setPower(-1);
+                startTime = System.currentTimeMillis();
+            }
+            long elapsedTime = System.currentTimeMillis() - startTime;
+
+            if (elapsedTime < 3000) {
+                return true;
+            } else {
+                intake_servo.setPower(0);
+                return false;
+            }
         }
     }
     public Action output(){

@@ -16,7 +16,7 @@ public class EncoderValuesFinder extends LinearOpMode {
         motor.setDirection(DcMotorSimple.Direction.FORWARD); // Set motor direction if needed
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER); // Start without encoder for manual control
 
-        telemetry.addData("Instructions", "Use gamepad to control the motor.");
+        telemetry.addData("Instructions", "Use game pad to control the motor.");
         telemetry.addData("Press A", "to record the current encoder value.");
         telemetry.update();
 
