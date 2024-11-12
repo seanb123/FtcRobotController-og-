@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.Paths.Red;
 
-// RR-specific imports
-
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -30,23 +28,14 @@ public class RedPathLeft extends LinearOpMode {
         Arm arm = new Arm(hardwareMap);
         Intake intake = new Intake(hardwareMap);
         Slide slide = new Slide(hardwareMap);
-//
 
         int visionOutputPosition = 1;
-        //TODO Make actual Path use Meep Meep and transfer said path here later
+        //TODO Make actual Path use MeepMeep and transfer said path here later
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
-                .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
+                .lineToY(20)
                 .waitSeconds(3);
         Action trajectoryActionCloseOut = tab1.fresh()
-                .strafeTo(new Vector2d(48, 12))
+                .strafeTo(new Vector2d(5, 20))
                 .build();
 
         int startPosition = visionOutputPosition;
