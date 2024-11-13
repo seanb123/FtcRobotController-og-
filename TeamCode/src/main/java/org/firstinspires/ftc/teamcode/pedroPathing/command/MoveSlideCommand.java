@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.pedroPathing.command;
 
 import com.arcrobotics.ftclib.command.CommandBase;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
-
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
 
 public class MoveSlideCommand extends CommandBase {
@@ -26,6 +26,9 @@ public class MoveSlideCommand extends CommandBase {
     public void execute(){
         double left_stick_y = controller.getLeftY();
         slide_subsystem.move_slides(left_stick_y);
+    }
+    public void telemetry_print(){
+
     }
 
     @Override
