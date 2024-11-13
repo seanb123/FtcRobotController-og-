@@ -56,7 +56,7 @@ public class path1 extends CommandOpMode {
 
 
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-                .lineToYSplineHeading(33, Math.toRadians(0))
+
                 .waitSeconds(2);
 
 
