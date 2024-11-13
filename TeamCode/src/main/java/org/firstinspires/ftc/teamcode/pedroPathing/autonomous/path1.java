@@ -50,13 +50,15 @@ public class path1 extends CommandOpMode {
 
     // actionBuilder builds from the drive steps passed to it
     @Override
-    public void run() {
+    public void runOpMode() {
+        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
-        Actions.runBlocking(
-                drive.actionBuilder(beginPose)
-                        .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                        .splineTo(new Vector2d(0, 60), Math.PI)
-                        .build());
+
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+                .lineToYSplineHeading(33, Math.toRadians(0))
+                .waitSeconds(2);
+
 
 
         new ArmScoreCommand(rotate_slide_subsystem);
