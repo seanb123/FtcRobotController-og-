@@ -24,6 +24,7 @@ public class path2 extends LinearOpMode {
 
     @Override
     public void runOpMode(){
+        // init bs
         rotateMotor = hardwareMap.get(DcMotorEx.class, "rotateMotor");
         rotateMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rotateMotor.setDirection(DcMotorSimple.Direction.REVERSE);
