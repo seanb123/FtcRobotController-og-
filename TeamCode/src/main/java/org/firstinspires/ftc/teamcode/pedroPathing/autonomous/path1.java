@@ -40,6 +40,7 @@ public class path1 extends CommandOpMode {
 
     @Override
     public void initialize() {
+
         slide_subsystem = new SlideSubsystem(hardwareMap);
         intake_subsystem = new IntakeSubsystem(hardwareMap);
         rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
@@ -50,7 +51,8 @@ public class path1 extends CommandOpMode {
 
     // actionBuilder builds from the drive steps passed to it
     @Override
-    public void runOpMode() {
+    public void run() {
+
         Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
