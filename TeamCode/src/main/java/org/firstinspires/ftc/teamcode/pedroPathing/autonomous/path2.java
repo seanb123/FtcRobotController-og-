@@ -41,7 +41,7 @@ public class path2 extends LinearOpMode {
         Pose2d starting_position = new Pose2d(0, 0, 0);
         MecanumDrive drive = new MecanumDrive(hardwareMap, starting_position);
 
-        // Put MeepeMeep here
+        // Put MeepeMeep path here
         Action trajTest = drive.actionBuilder(drive.pose)
                 .lineToX(10)
                 .stopAndAdd(new Arm(rotateMotor, 250))
