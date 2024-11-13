@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -20,6 +21,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
+import org.firstinspires.ftc.teamcode.pedroPathing.command.ArmScoreCommand;
+import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveSlideCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ActuatorSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
@@ -54,6 +57,10 @@ public class path1 extends CommandOpMode {
                         .splineTo(new Vector2d(30, 30), Math.PI / 2)
                         .splineTo(new Vector2d(0, 60), Math.PI)
                         .build());
+
+
+        new ArmScoreCommand(rotate_slide_subsystem);
+
     }
 
 }
