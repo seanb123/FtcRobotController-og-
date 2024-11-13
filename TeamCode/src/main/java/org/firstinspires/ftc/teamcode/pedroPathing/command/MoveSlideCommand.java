@@ -27,9 +27,6 @@ public class MoveSlideCommand extends CommandBase {
         double left_stick_y = controller.getLeftY();
         slide_subsystem.move_slides(left_stick_y);
     }
-    public void telemetry_print(){
-
-    }
 
     @Override
     public void end(boolean interrupted){
