@@ -40,6 +40,7 @@ public class path1 extends CommandOpMode {
 
     @Override
     public void initialize() {
+
         slide_subsystem = new SlideSubsystem(hardwareMap);
         intake_subsystem = new IntakeSubsystem(hardwareMap);
         rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
@@ -52,11 +53,14 @@ public class path1 extends CommandOpMode {
     @Override
     public void run() {
 
-        Actions.runBlocking(
-                drive.actionBuilder(beginPose)
-                        .splineTo(new Vector2d(30, 30), Math.PI / 2)
-                        .splineTo(new Vector2d(0, 60), Math.PI)
-                        .build());
+        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+
+
+        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+
+                .waitSeconds(2);
+
 
 
         new ArmScoreCommand(rotate_slide_subsystem);
