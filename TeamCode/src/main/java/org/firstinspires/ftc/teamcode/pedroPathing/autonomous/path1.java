@@ -32,6 +32,8 @@ public class path1 extends CommandOpMode {
     private SlideSubsystem slide_subsystem;
     private IntakeSubsystem intake_subsystem;
     private RotateSlideSubsystem rotate_slide_subsystem;
+    private MecanumDrive drive;
+    private Pose2d beginPose;
 
     @Override
     public void initialize() {
@@ -39,26 +41,19 @@ public class path1 extends CommandOpMode {
         intake_subsystem = new IntakeSubsystem(hardwareMap);
         rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
 
+        beginPose = new Pose2d(0, 0, 0);
+        drive = new MecanumDrive(hardwareMap, beginPose);
     }
+
     // actionBuilder builds from the drive steps passed to it
     @Override
-    public void runOpMode() {
-        // instantiate your MecanumDrive at a particular pose.
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
-        // actionBuilder builds from the drive steps passed to it
-        TrajectoryActionBuilder myBot = drive.actionBuilder(initialPose)
-                // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
+    public void run() {
 
+        Actions.runBlocking(
+                drive.actionBuilder(beginPose)
+                        .splineTo(new Vector2d(30, 30), Math.PI / 2)
+                        .splineTo(new Vector2d(0, 60), Math.PI)
+                        .build());
+    }
 
-                        .forward(30)
-                        .turn(Math.toRadians(90))
-                        .forward(2)
-                        //spin intake to pick up brick
-                        .strafeLeft(26)
-                        .forward(20)
-                        .turn(Math.toRadians(45))
-                        //put brick into basket
-
-                        .build();
 }

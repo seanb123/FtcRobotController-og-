@@ -30,6 +30,7 @@ public class RedPathLeft extends LinearOpMode {
         Slide slide = new Slide(hardwareMap);
 
         int visionOutputPosition = 1;
+
         //TODO Make actual Path use MeepMeep and transfer said path here later
         TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
                 .lineToY(20)

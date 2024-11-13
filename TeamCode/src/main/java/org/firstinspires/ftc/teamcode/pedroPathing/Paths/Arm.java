@@ -12,7 +12,7 @@ public class Arm {
     private DcMotorEx armMotor;
 
     public Arm(HardwareMap hardwareMap) {
-        armMotor = hardwareMap.get(DcMotorEx.class, "liftMotor");
+        armMotor = hardwareMap.get(DcMotorEx.class, "rotateMotor");
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         armMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
