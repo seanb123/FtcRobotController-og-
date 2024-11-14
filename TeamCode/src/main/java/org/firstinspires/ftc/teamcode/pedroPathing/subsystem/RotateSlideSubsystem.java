@@ -13,7 +13,6 @@ public class RotateSlideSubsystem extends SubsystemBase {
 
     public RotateSlideSubsystem(HardwareMap hardwareMap){
         rotate_motor = hardwareMap.get(DcMotorEx.class, "rotateMotor");
-        rotate_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rotate_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         rotate_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }

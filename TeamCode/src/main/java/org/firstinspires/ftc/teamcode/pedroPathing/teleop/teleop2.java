@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.pedroPathing.teleop;
 import static com.arcrobotics.ftclib.kotlin.extensions.gamepad.GamepadExExtKt.whenActive;
 
 import com.arcrobotics.ftclib.command.CommandOpMode;
-import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.button.GamepadButton;
 import com.arcrobotics.ftclib.command.button.Trigger;
 import com.arcrobotics.ftclib.gamepad.GamepadEx;
@@ -19,13 +18,11 @@ import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveIntakeCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveActuatorCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveSlideCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.RotateSlideCommand;
-import org.firstinspires.ftc.teamcode.pedroPathing.command.SlideScoreCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ActuatorSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
-
 
 @TeleOp(name = "MainTeleop")
 public class teleop2 extends CommandOpMode {
@@ -38,7 +35,7 @@ public class teleop2 extends CommandOpMode {
 
     private Trigger left_trigger, right_trigger;
 
-    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, raise_slide_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
+    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
 
     @Override
     public void initialize(){
@@ -86,9 +83,6 @@ public class teleop2 extends CommandOpMode {
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, 1));
         lower_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.RIGHT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, -1));
-
-        raise_slide_button = (new GamepadButton(arm_controller, GamepadKeys.Button.B))
-                .whenPressed(new SlideScoreCommand(slide_subsystem));
 
 //        move_intake_button = (new GamepadButton(drive_controller, GamepadKeys.Button.X))
 //                .whenHeld(new MoveIntakeCommand(intake_subsystem, true));

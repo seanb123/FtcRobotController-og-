@@ -16,8 +16,6 @@ public class IntakeSubsystem extends SubsystemBase {
         intake_servo.setPower(direction ? 1 : -1);
     }
 
-    public void move_intake_slow(boolean direction_slow){ intake_servo.setPower(direction_slow ? 0.5 : -0.1);}
-
     public void stop_intake(){
         intake_servo.setPower(0);
     }

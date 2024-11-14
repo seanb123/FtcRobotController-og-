@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.pedroPathing.command;
 
 import com.arcrobotics.ftclib.command.CommandBase;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
 
 public class ArmScoreCommand extends CommandBase {

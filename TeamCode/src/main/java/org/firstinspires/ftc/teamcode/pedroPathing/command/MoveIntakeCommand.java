@@ -22,7 +22,6 @@ public class MoveIntakeCommand extends CommandBase {
     public void execute(){
         left_trigger = controller.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER);
         right_trigger = controller.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER);
-
         if (left_trigger > 0){
             intake_subsystem.move_intake(true);
         } else if (right_trigger > 0){
