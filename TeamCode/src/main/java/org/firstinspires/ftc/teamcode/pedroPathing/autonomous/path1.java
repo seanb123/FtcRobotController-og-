@@ -2,48 +2,46 @@ package org.firstinspires.ftc.teamcode.pedroPathing.autonomous;
 
 import androidx.annotation.NonNull;
 
-// RR-specific imports
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-
-// Non-RR imports
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.pedroPathing.command.ArmScoreCommand;
-import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveSlideCommand;
-import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ActuatorSubsystem;
-import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.IntakeSubsystem;
-import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.RotateSlideSubsystem;
-import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.SlideSubsystem;
 
 
 @Config
-@Autonomous
+@Autonomous(name = "Blue path Left", group = "Autonomous")
 public class path1 extends CommandOpMode {
-    private SlideSubsystem slide_subsystem;
-    private IntakeSubsystem intake_subsystem;
-    private RotateSlideSubsystem rotate_slide_subsystem;
     private MecanumDrive drive;
     private Pose2d beginPose;
-
+    private DcMotor rotateMotor, slideMotor;
+    private CRServo intakeServo;
     @Override
     public void initialize() {
 
-        slide_subsystem = new SlideSubsystem(hardwareMap);
-        intake_subsystem = new IntakeSubsystem(hardwareMap);
-        rotate_slide_subsystem = new RotateSlideSubsystem(hardwareMap);
+        rotateMotor = hardwareMap.get(DcMotorEx.class, "rotateMotor");
+        rotateMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rotateMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rotateMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        slideMotor = hardwareMap.get(DcMotorEx.class, "slideMotor");
+        slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
 
         beginPose = new Pose2d(0, 0, 0);
         drive = new MecanumDrive(hardwareMap, beginPose);
@@ -51,20 +49,125 @@ public class path1 extends CommandOpMode {
 
     // actionBuilder builds from the drive steps passed to it
     @Override
-    public void run() {
+    public void runOpMode() {
 
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
+        Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
 
+        //1  Block
+        Action firstTrackPhase1 = drive.actionBuilder(drive.pose)
+                .lineToY(30)
+                .strafeTo(new Vector2d(5,30))
+                .build();
+        Action firstTrackPhase2 = drive.actionBuilder(drive.pose)
+                .waitSeconds(3)
+                .build();
+        Action firstTrackPhase3 = drive.actionBuilder(drive.pose)
+                .lineToY(-10)
+                .strafeTo(new Vector2d(70,30))
+                .turn(Math.toRadians(140))
+                .waitSeconds(4)
+                .build();
+        waitForStart();
 
-        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
-
-                .waitSeconds(2);
+        if(isStopRequested()) return;
 
 
+        Actions.runBlocking(new SequentialAction(
+                firstTrackPhase1,
+                new ParallelAction(
+                        new Arm(rotateMotor, 250),
+                        new Slide(slideMotor, 1500),
+                        new Intake(intakeServo, 1)
+                ),
+                firstTrackPhase2,
+                new ParallelAction(
+                        new Arm(rotateMotor, 0),
+                        new Slide(slideMotor, 0)
+                ),
+                firstTrackPhase3,
+                new ParallelAction(
+                        new Arm(rotateMotor, 3200),
+                        new Slide(slideMotor, 1500)
+                )
+            )
+        );
 
-        new ArmScoreCommand(rotate_slide_subsystem);
+    }
+    // -------------------------Rotate Arm-------------------------
+    private class Arm implements Action {
+        DcMotor rotateMotor;
+        int position;
 
+        public Arm(DcMotor motor, int position){
+            this.rotateMotor = motor;
+            this.position = position;
+        }
+
+        public void goto_position(){
+            rotateMotor.setTargetPosition(position);
+            rotateMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            rotateMotor.setPower(0.8);
+        }
+
+        public boolean reached_position(){
+            return Math.abs(position - rotateMotor.getCurrentPosition()) <= 50;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            goto_position();
+            return reached_position();
+        }
+    }
+
+    // -------------------------Linear Slides-------------------------
+    private class Slide implements Action {
+        DcMotor slideMotor;
+        int position;
+
+        public Slide(DcMotor motor, int position){
+            this.slideMotor = motor;
+            this.position = position;
+        }
+
+        public void goto_position(){
+            slideMotor.setTargetPosition(position);
+            slideMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            slideMotor.setPower(0.5);
+        }
+
+        public boolean reached_position(){
+            return Math.abs(position - slideMotor.getCurrentPosition()) <= 50;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            goto_position();
+            return reached_position();
+        }
+    }
+
+    // -------------------------INTAKE-------------------------
+    private class Intake implements Action {
+        CRServo intakeServo;
+        int direction;
+        ElapsedTime timer;
+
+        public Intake(CRServo servo, int dir){
+            this.intakeServo = servo;
+            this.direction = dir;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            if (timer == null){
+                timer = new ElapsedTime();
+            }
+            intakeServo.setPower(direction == 1 ? 1 : 0);
+
+            return timer.seconds() < 2 ? true : false;
+        }
     }
 
 }

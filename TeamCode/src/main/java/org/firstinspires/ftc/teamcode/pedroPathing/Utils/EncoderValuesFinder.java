@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.pedroPathing.Paths;
+package org.firstinspires.ftc.teamcode.pedroPathing.Utils;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
