@@ -5,8 +5,10 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
-import com.acmerobotics.roadrunner.ftc.Actions;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -17,7 +19,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-@Autonomous
+@Autonomous(name = "Blue path Left", group = "Autonomous")
 public class path2 extends LinearOpMode {
     private DcMotor rotateMotor, slideMotor;
     private CRServo intakeServo;
@@ -41,20 +43,20 @@ public class path2 extends LinearOpMode {
         Pose2d starting_position = new Pose2d(0, 0, 0);
         MecanumDrive drive = new MecanumDrive(hardwareMap, starting_position);
 
-        // Put MeepeMeep path ehre
-        Action trajTest = drive.actionBuilder(drive.pose)
-                .lineToX(10)
-                .stopAndAdd(new Arm(rotateMotor, 250))
-                .waitSeconds(1)
-                .stopAndAdd(new Slide(slideMotor, 1500))
-                .waitSeconds(2)
-                .stopAndAdd(new Intake(intakeServo, 1))
-                .waitSeconds(2)
-                .stopAndAdd(new Slide(slideMotor, 0))
-                .waitSeconds(2)
-                .stopAndAdd(new Arm(rotateMotor, 0))
-                .waitSeconds(1)
-                .turn(Math.toRadians(90))
+        // Put MeepeMeep path here
+        Action trajPhase1 = drive.actionBuilder(drive.pose)
+                .lineToY(30)
+                .strafeTo(new Vector2d(40,30))
+                .build();
+        Action trajPhase2 = drive.actionBuilder(drive.pose)
+                .waitSeconds(3)
+                .build();
+        Action trajPhase3 = drive.actionBuilder(drive.pose)
+                .lineToY(-10)
+                .strafeTo(new Vector2d(60,30))
+                .turn(Math.toRadians(140))
+                .waitSeconds(4)
+                .stopAndAdd(new Intake(intakeServo, -1))
                 .build();
 
         waitForStart();
@@ -62,15 +64,26 @@ public class path2 extends LinearOpMode {
         if(isStopRequested()) return;
 
 
-        Actions.runBlocking(
-                /*
+        Actions.runBlocking(new SequentialAction(
+                trajPhase1,
                 new ParallelAction(
-                        trajTest,
-                        new Arm(rotateMotor, 1300)
+                        new Arm(rotateMotor, 250),
+                        new Slide(slideMotor, 1500),
+                        new Intake(intakeServo, 1)
+                ),
+                trajPhase2,
+                new ParallelAction(
+                        new Arm(rotateMotor, 0),
+                        new Slide(slideMotor, 0)
+                ),
+                trajPhase3,
+                new ParallelAction(
+                        new Arm(rotateMotor, 3200),
+                        new Slide(slideMotor, 1500)
                 )
-                */
-                trajTest
-        );
+
+        ));
+
     }
 
     // -------------------------Rotate Arm-------------------------
