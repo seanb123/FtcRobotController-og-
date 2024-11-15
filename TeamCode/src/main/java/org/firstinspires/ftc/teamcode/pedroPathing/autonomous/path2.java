@@ -19,7 +19,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-@Autonomous(name = "Blue path Left", group = "Autonomous")
+@Autonomous(name = "Blue path right")
 public class path2 extends LinearOpMode {
     private DcMotor rotateMotor, slideMotor;
     private CRServo intakeServo;

@@ -13,7 +13,7 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     public void move_intake(boolean direction){
-        intake_servo.setPower(direction ? 1 : -1);
+        intake_servo.setPower(direction ? 1 : -0.5);
     }
 
     public void stop_intake(){

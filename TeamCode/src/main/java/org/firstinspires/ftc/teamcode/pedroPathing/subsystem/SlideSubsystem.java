@@ -12,8 +12,10 @@ public class SlideSubsystem extends SubsystemBase {
     public SlideSubsystem(HardwareMap hardwareMap){
         // Initializing hardware
         slide_motor = hardwareMap.get(DcMotorEx.class, "slideMotor");
+        slide_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide_motor.setDirection(DcMotorSimple.Direction.REVERSE);
         slide_motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        slide_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Encoders ONLY
         // slide_motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

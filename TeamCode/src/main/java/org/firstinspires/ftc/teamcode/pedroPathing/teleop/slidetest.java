@@ -10,7 +10,7 @@ public class slidetest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        slide_motor = hardwareMap.get(DcMotor.class, "slideMotor");
+        slide_motor = hardwareMap.get(DcMotor.class, "rotateMotor");
 
         waitForStart();
 

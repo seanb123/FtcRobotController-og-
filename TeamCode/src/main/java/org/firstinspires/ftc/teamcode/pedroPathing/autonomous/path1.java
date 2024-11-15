@@ -12,6 +12,7 @@ import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
@@ -23,14 +24,16 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Config
 @Autonomous(name = "Blue path Left", group = "Autonomous")
-public class path1 extends CommandOpMode {
+public class path1 extends LinearOpMode {
     private MecanumDrive drive;
     private Pose2d beginPose;
     private DcMotor rotateMotor, slideMotor;
     private CRServo intakeServo;
-    @Override
-    public void initialize() {
 
+
+    // actionBuilder builds from the drive steps passed to it
+    @Override
+    public void runOpMode() {
         rotateMotor = hardwareMap.get(DcMotorEx.class, "rotateMotor");
         rotateMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rotateMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -45,11 +48,6 @@ public class path1 extends CommandOpMode {
 
         beginPose = new Pose2d(0, 0, 0);
         drive = new MecanumDrive(hardwareMap, beginPose);
-    }
-
-    // actionBuilder builds from the drive steps passed to it
-    @Override
-    public void runOpMode() {
 
         Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(90));
         MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
@@ -57,10 +55,58 @@ public class path1 extends CommandOpMode {
         //1  Block
         Action firstTrackPhase1 = drive.actionBuilder(drive.pose)
                 .lineToY(30)
-                .strafeTo(new Vector2d(5,30))
+                .turn(Math.toRadians(137))
+                .lineToX(-16)
+                .stopAndAdd(new SequentialAction(
+                    new Arm(rotateMotor, 1250),
+                    new Slide(slideMotor, 1700)
+                ))
+                .waitSeconds(1)
+                .lineToX(-26)
+                .waitSeconds(0.5)
+                .stopAndAdd(new Intake(intakeServo, 0))
+                .waitSeconds(1)
+                .stopAndAdd(new Slide(slideMotor, 0))
+                .waitSeconds(1.5)
+                .stopAndAdd(new Arm(rotateMotor, 0))
+                .lineToX(10)
+                // second
+                .turn(Math.toRadians(-45))
+                .stopAndAdd(new SequentialAction(
+                    new Arm(rotateMotor, 200),
+                    new Slide(slideMotor, 1225)
+                ))
+                .waitSeconds(1)
+                .stopAndAdd(new Intake(intakeServo, 1))
+                .waitSeconds(1)
+                .stopAndAdd(new SequentialAction(
+                        new Arm(rotateMotor, 50),
+                        new Slide(slideMotor, 0)
+                ))
+                .waitSeconds(1)
+                .turn(Math.toRadians(45))
+                .lineToX(-12.5)
+                .stopAndAdd(new SequentialAction(
+                        new Arm(rotateMotor, 1250),
+                        new Slide(slideMotor, 1800)
+                ))
+                .waitSeconds(1)
+                .lineToX(-16.5)
+                .waitSeconds(1)
+                .stopAndAdd(new Intake(intakeServo, 0))
+                .waitSeconds(2)
+                .stopAndAdd(new Slide(slideMotor, 0))
+                .waitSeconds(0.5)
+                .stopAndAdd(new Arm(rotateMotor, 0))
                 .build();
+
         Action firstTrackPhase2 = drive.actionBuilder(drive.pose)
-                .waitSeconds(3)
+                .waitSeconds(1)
+                .lineToYLinearHeading(20, Math.toRadians(270))
+                .waitSeconds(2)
+                .build();
+        Action sleep = drive.actionBuilder(drive.pose)
+                .waitSeconds(2)
                 .build();
         Action firstTrackPhase3 = drive.actionBuilder(drive.pose)
                 .lineToY(-10)
@@ -72,24 +118,30 @@ public class path1 extends CommandOpMode {
 
         if(isStopRequested()) return;
 
-
         Actions.runBlocking(new SequentialAction(
-                firstTrackPhase1,
-                new ParallelAction(
-                        new Arm(rotateMotor, 250),
-                        new Slide(slideMotor, 1500),
-                        new Intake(intakeServo, 1)
-                ),
-                firstTrackPhase2,
-                new ParallelAction(
-                        new Arm(rotateMotor, 0),
-                        new Slide(slideMotor, 0)
-                ),
-                firstTrackPhase3,
-                new ParallelAction(
-                        new Arm(rotateMotor, 3200),
-                        new Slide(slideMotor, 1500)
-                )
+                firstTrackPhase1
+//                new SequentialAction(
+//                        new Arm(rotateMotor, 1250),
+//                        new Slide(slideMotor, 1700)
+//                ),
+//                firstTrackPhase2,
+//                new Intake(intakeServo, 0),
+//                sleep,
+//                new SequentialAction(
+//                        new Arm(rotateMotor, 0),
+//                        new Slide(slideMotor, 0)
+//                )
+
+
+//                new ParallelAction(
+//                        new Arm(rotateMotor, 0),
+//                        new Slide(slideMotor, 0)
+//                ),
+//                firstTrackPhase3,
+//                new ParallelAction(
+//                        new Arm(rotateMotor, 1300),
+//                        new Slide(slideMotor, 1700)
+//                )
             )
         );
 
@@ -164,9 +216,9 @@ public class path1 extends CommandOpMode {
             if (timer == null){
                 timer = new ElapsedTime();
             }
-            intakeServo.setPower(direction == 1 ? 1 : 0);
+            intakeServo.setPower(direction == 1 ? 1 : -0.5);
 
-            return timer.seconds() < 2 ? true : false;
+            return timer.seconds() < 1 ? true : false;
         }
     }
 
