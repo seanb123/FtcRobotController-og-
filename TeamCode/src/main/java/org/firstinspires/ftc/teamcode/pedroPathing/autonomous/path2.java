@@ -39,7 +39,7 @@ public class path2 extends LinearOpMode {
         intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
 
 
-        Pose2d starting_position = new Pose2d(0, 0, 0);
+        Pose2d starting_position = new Pose2d(0, 0, 0);//
         MecanumDrive drive = new MecanumDrive(hardwareMap, starting_position);
 
         // Put MeepeMeep path here
