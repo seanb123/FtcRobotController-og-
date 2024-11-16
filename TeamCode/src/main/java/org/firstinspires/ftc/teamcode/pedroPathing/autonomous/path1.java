@@ -5,12 +5,9 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.arcrobotics.ftclib.command.CommandOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -23,7 +20,7 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 
 @Config
-@Autonomous(name = "Blue path Left", group = "Autonomous")
+@Autonomous(name = "Left Path", group = "Autonomous")
 public class path1 extends LinearOpMode {
     private MecanumDrive drive;
     private Pose2d beginPose;
@@ -99,49 +96,12 @@ public class path1 extends LinearOpMode {
                 .waitSeconds(0.5)
                 .stopAndAdd(new Arm(rotateMotor, 0))
                 .build();
-
-        Action firstTrackPhase2 = drive.actionBuilder(drive.pose)
-                .waitSeconds(1)
-                .lineToYLinearHeading(20, Math.toRadians(270))
-                .waitSeconds(2)
-                .build();
-        Action sleep = drive.actionBuilder(drive.pose)
-                .waitSeconds(2)
-                .build();
-        Action firstTrackPhase3 = drive.actionBuilder(drive.pose)
-                .lineToY(-10)
-                .strafeTo(new Vector2d(70,30))
-                .turn(Math.toRadians(140))
-                .waitSeconds(4)
-                .build();
         waitForStart();
 
         if(isStopRequested()) return;
 
         Actions.runBlocking(new SequentialAction(
                 firstTrackPhase1
-//                new SequentialAction(
-//                        new Arm(rotateMotor, 1250),
-//                        new Slide(slideMotor, 1700)
-//                ),
-//                firstTrackPhase2,
-//                new Intake(intakeServo, 0),
-//                sleep,
-//                new SequentialAction(
-//                        new Arm(rotateMotor, 0),
-//                        new Slide(slideMotor, 0)
-//                )
-
-
-//                new ParallelAction(
-//                        new Arm(rotateMotor, 0),
-//                        new Slide(slideMotor, 0)
-//                ),
-//                firstTrackPhase3,
-//                new ParallelAction(
-//                        new Arm(rotateMotor, 1300),
-//                        new Slide(slideMotor, 1700)
-//                )
             )
         );
 

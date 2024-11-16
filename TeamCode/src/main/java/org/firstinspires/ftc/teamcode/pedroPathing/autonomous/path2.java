@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
@@ -45,42 +44,59 @@ public class path2 extends LinearOpMode {
 
         // Put MeepeMeep path here
         Action trajPhase1 = drive.actionBuilder(drive.pose)
-                .lineToY(30)
-                .strafeTo(new Vector2d(40,30))
-                .build();
-        Action trajPhase2 = drive.actionBuilder(drive.pose)
-                .waitSeconds(3)
-                .build();
-        Action trajPhase3 = drive.actionBuilder(drive.pose)
-                .lineToY(-10)
-                .strafeTo(new Vector2d(60,30))
-                .turn(Math.toRadians(140))
-                .waitSeconds(4)
-                .stopAndAdd(new Intake(intakeServo, -1))
-                .build();
+                //FIRST
+                .lineToY(38)
+                .strafeTo(new Vector2d(-48,38))
+                .turn(Math.toRadians(145))
+                .lineToX(-16)
+                .strafeTo(new Vector2d(-48,-59))
+                .stopAndAdd(new SequentialAction(
+                        new Arm(rotateMotor, 1250),
+                        new Slide(slideMotor, 1700),
+                        new Intake(intakeServo, 1)
 
+                ))
+                .waitSeconds(1)
+                //Second Phase
+                .lineToX(-26)
+                .waitSeconds(0.5)
+                .turn(Math.toRadians(-45))
+                .stopAndAdd(new SequentialAction(
+                        new Arm(rotateMotor, 200),
+                        new Slide(slideMotor, 1225)
+                ))
+                .waitSeconds(1)
+                .stopAndAdd(new Intake(intakeServo, 1))
+                .waitSeconds(1)
+                .stopAndAdd(new SequentialAction(
+                        new Arm(rotateMotor, 50),
+                        new Slide(slideMotor, 0)
+                ))
+                .waitSeconds(1)
+                .turn(Math.toRadians(45))
+                .lineToX(-12.5)
+                .stopAndAdd(new SequentialAction(
+                        new Arm(rotateMotor, 1250),
+                        new Slide(slideMotor, 1800)
+                ))
+                .waitSeconds(1)
+                .lineToX(-16.5)
+                .waitSeconds(1)
+                .stopAndAdd(new Intake(intakeServo, 0))
+                .waitSeconds(2)
+                .stopAndAdd(new Slide(slideMotor, 0))
+                .waitSeconds(0.5)
+                .stopAndAdd(new Arm(rotateMotor, 0))
+                .strafeTo(new Vector2d(58,-50))
+                .lineToY(-38)
+                .build();
         waitForStart();
 
         if(isStopRequested()) return;
 
 
         Actions.runBlocking(new SequentialAction(
-                trajPhase1,
-                new ParallelAction(
-                        new Arm(rotateMotor, 250),
-                        new Slide(slideMotor, 1500),
-                        new Intake(intakeServo, 1)
-                ),
-                trajPhase2,
-                new ParallelAction(
-                        new Arm(rotateMotor, 0),
-                        new Slide(slideMotor, 0)
-                ),
-                trajPhase3,
-                new ParallelAction(
-                        new Arm(rotateMotor, 3200),
-                        new Slide(slideMotor, 1500)
-                )
+                trajPhase1
 
         ));
 
