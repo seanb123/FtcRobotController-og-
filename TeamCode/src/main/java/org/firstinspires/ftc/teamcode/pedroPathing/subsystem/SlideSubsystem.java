@@ -30,17 +30,21 @@ public class SlideSubsystem extends SubsystemBase {
         slide_motor.setPower(speed);
     }
 
-    public void hold_position(){
-        // Try to hold the current position
-        int current_position = slide_motor.getCurrentPosition();
-        slide_motor.setTargetPosition(current_position);
+    public double get_position(){
+        return slide_motor.getCurrentPosition();
+    }
+
+    public void goto_score_position(){
+        slide_motor.setTargetPosition(1700);
         slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide_motor.setPower(1);
     }
+    public boolean reached_position(){
+        return Math.abs(1300 - slide_motor.getCurrentPosition()) <= 50;
+    }
 
-    public boolean is_slide_busy(){
-        // Returns true if slide is busy, else returns false
-        return slide_motor.isBusy();
+    public void stop_using_encoder(){
+        slide_motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     public void stop_slide(){

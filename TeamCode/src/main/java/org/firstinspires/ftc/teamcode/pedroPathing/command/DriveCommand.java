@@ -26,19 +26,19 @@ public class DriveCommand extends CommandBase {
         driveSubsystem.drive(forward, strafe, rotate);
 
         if (gamepad.dpad_left){
-            driveSubsystem.drive(0, 0.7, 0);
+            driveSubsystem.drive(0, 0.85, 0);
         }
 
         if (gamepad.dpad_right){
-            driveSubsystem.drive(0, -0.7, 0);
+            driveSubsystem.drive(0, -0.85, 0);
         }
 
         if (gamepad.dpad_up){
-            driveSubsystem.drive(-0.75, 0, 0);
+            driveSubsystem.drive(-0.8, 0, 0);
         }
 
         if (gamepad.dpad_down){
-            driveSubsystem.drive(0.75, 0, 0);
+            driveSubsystem.drive(0.8, 0, 0);
         }
     }
 
