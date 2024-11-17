@@ -39,6 +39,17 @@ public class SlideSubsystem extends SubsystemBase {
         slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide_motor.setPower(1);
     }
+
+    public void retract_slides(){
+        slide_motor.setTargetPosition(0);
+        slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slide_motor.setPower(1);
+    }
+
+    public boolean retracted(){
+        return Math.abs(0 - slide_motor.getCurrentPosition()) <= 50;
+    }
+
     public boolean reached_position(){
         return Math.abs(1300 - slide_motor.getCurrentPosition()) <= 50;
     }

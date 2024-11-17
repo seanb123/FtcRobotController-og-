@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.pedroPathing.command.DriveCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveIntakeCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveActuatorCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.MoveSlideCommand;
+import org.firstinspires.ftc.teamcode.pedroPathing.command.RetractSlideCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.RotateSlideCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.command.SlideScoreCommand;
 import org.firstinspires.ftc.teamcode.pedroPathing.subsystem.ActuatorSubsystem;
@@ -36,7 +37,7 @@ public class teleop2 extends CommandOpMode {
 
     private Trigger left_trigger, right_trigger;
 
-    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, raise_actuator_button, lower_actuator_button, raise_slide_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
+    private com.arcrobotics.ftclib.command.button.Button raise_arm_button, lower_arm_button, lower_slide_button, raise_actuator_button, lower_actuator_button, raise_slide_button, move_intake_button, move_intake_button2, rotate_button, rotate_button2;
 
     @Override
     public void initialize(){
@@ -82,6 +83,9 @@ public class teleop2 extends CommandOpMode {
 
         raise_slide_button = (new GamepadButton(arm_controller, GamepadKeys.Button.B))
                 .whenPressed(new SlideScoreCommand(slide_subsystem));
+
+        lower_slide_button = (new GamepadButton(arm_controller, GamepadKeys.Button.Y))
+                .whenPressed(new RetractSlideCommand(slide_subsystem));
 
         raise_actuator_button = (new GamepadButton(arm_controller, GamepadKeys.Button.LEFT_BUMPER))
                 .whileHeld(new MoveActuatorCommand(actuator_subsystem, 1));

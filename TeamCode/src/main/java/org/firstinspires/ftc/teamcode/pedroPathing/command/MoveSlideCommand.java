@@ -25,7 +25,7 @@ public class MoveSlideCommand extends CommandBase {
     @Override
     public void execute(){
         double left_stick_y = controller.getLeftY();
-        slide_subsystem.move_slides(left_stick_y * 0.5);
+        slide_subsystem.move_slides(slide_subsystem.get_position() > 2100 ? (left_stick_y > 0 ? 0 : left_stick_y) : left_stick_y);
     }
 
     @Override
