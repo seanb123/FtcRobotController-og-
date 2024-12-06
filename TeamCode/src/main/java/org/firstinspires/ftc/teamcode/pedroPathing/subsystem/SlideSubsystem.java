@@ -35,7 +35,7 @@ public class SlideSubsystem extends SubsystemBase {
     }
 
     public void goto_score_position(){
-        slide_motor.setTargetPosition(1700);
+        slide_motor.setTargetPosition(1850);
         slide_motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slide_motor.setPower(1);
     }

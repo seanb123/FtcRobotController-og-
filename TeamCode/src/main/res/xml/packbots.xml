@@ -184,7 +184,7 @@
 
             Add devices here that are plugged into the secondary REV expansion
             hub, following the syntax above.
-
+/2m distance sensor
             ************************************************************* -->
 
 <!--        </LynxModule>-->
@@ -196,6 +196,7 @@
             <goBILDA5202SeriesMotor name="leftBack" port="2" />
             <goBILDA5202SeriesMotor name="rightBack" port="3" />
             <ContinuousRotationServo name="intakeServo" port="5" />
+            <REV_VL53L0X_RANGE_SENSOR name="distanceSensor" port="0"/>
         </LynxModule>
     </LynxUsbDevice>
 
