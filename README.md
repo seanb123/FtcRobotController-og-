@@ -19,7 +19,12 @@ Even if you are an advanced Java programmer, it is helpful to start with the [FT
 
 ## Downloading the Project
 If you are an Android Studio programmer, there are several ways to download this repo.  Note that if you use the Blocks or OnBot Java Tool to program your robot, then you do not need to download this repository.
+control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.
 
+## Requirements
+To use this Android Studio project, you will need Android Studio 2021.2 (codename Chipmunk) or later.
+
+To program your robot in Blocks or OnBot Java, you do not need Android Studio
 * If you are a git user, you can clone the most current version of the repository:
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;git clone https://github.com/FIRST-Tech-Challenge/FtcRobotController.git</p>
