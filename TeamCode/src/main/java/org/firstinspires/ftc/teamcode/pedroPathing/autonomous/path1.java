@@ -21,11 +21,13 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Config
 @Autonomous(name = "Left Path", group = "Autonomous")
-public class path1 extends LinearOpMode {
+public class
+path1 extends LinearOpMode {
     private MecanumDrive drive;
     private Pose2d beginPose;
     private DcMotor rotateMotor, slideMotor;
     private CRServo intakeServo;
+    private DcMotor specimenSlide;
 
 
     // actionBuilder builds from the drive steps passed to it
@@ -40,6 +42,11 @@ public class path1 extends LinearOpMode {
         slideMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slideMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         slideMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        specimenSlide = hardwareMap.get(DcMotorEx.class, "specimenSlide");
+        specimenSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        specimenSlide.setDirection(DcMotorSimple.Direction.REVERSE);
+        specimenSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         intakeServo = hardwareMap.get(CRServo.class, "intakeServo");
 
@@ -151,6 +158,32 @@ public class path1 extends LinearOpMode {
 
         public boolean reached_position(){
             return Math.abs(position - slideMotor.getCurrentPosition()) <= 50;
+        }
+
+        @Override
+        public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+            goto_position();
+            return reached_position();
+        }
+    }
+    // -------------------------speciment Slides-------------------------
+    private class SpecimenSlide implements Action {
+        DcMotor specimenSlide;
+        int position;
+
+        public SpecimenSlide(DcMotor motor, int position){
+            this.specimenSlide = motor;
+            this.position = position;
+        }
+
+        public void goto_position(){
+            specimenSlide.setTargetPosition(position);
+            specimenSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            specimenSlide.setPower(0.5);
+        }
+
+        public boolean reached_position(){
+            return Math.abs(position - specimenSlide.getCurrentPosition()) <= 50;
         }
 
         @Override
